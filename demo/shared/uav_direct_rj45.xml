@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<scenario name="/tmp/tmp70b2cuzl">
+<scenario name="/shared/uav_direct_rj45.xml">
   <networks>
     <network id="3" name="AdHocWiFi" icon="" canvas="0" type="WIRELESS_LAN">
       <position x="62.0" y="157.0" lat="47.578215019332305" lon="-122.13176726327383" alt="2.0"/>
@@ -7,7 +7,7 @@
     <network id="4" name="uav0" icon="/root/.coregui/icons/uav.png" canvas="0" type="RJ45">
       <position x="517.0099487304688" y="515.0199584960938" lat="47.57604541524425" lon="-122.1276798393601" alt="2.0"/>
     </network>
-    <network id="5" name="qgc0" icon="" canvas="0" type="RJ45">
+    <network id="5" name="qgc0" icon="/root/.coregui/icons/pc.png" canvas="0" type="RJ45">
       <position x="666.0" y="408.0" lat="47.57669396655129" lon="-122.12634143895774" alt="2.0"/>
     </network>
   </networks>
