@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario name="/tmp/tmp70b2cuzl">
+  <networks>
+    <network id="3" name="AdHocWiFi" icon="" canvas="0" type="WIRELESS_LAN">
+      <position x="62.0" y="157.0" lat="47.578215019332305" lon="-122.13176726327383" alt="2.0"/>
+    </network>
+    <network id="4" name="uav0" icon="/root/.coregui/icons/uav.png" canvas="0" type="RJ45">
+      <position x="517.0099487304688" y="515.0199584960938" lat="47.57604541524425" lon="-122.1276798393601" alt="2.0"/>
+    </network>
+    <network id="5" name="qgc0" icon="" canvas="0" type="RJ45">
+      <position x="666.0" y="408.0" lat="47.57669396655129" lon="-122.12634143895774" alt="2.0"/>
+    </network>
+  </networks>
+  <devices/>
+  <links>
+    <link node1="3" node2="4">
+      <iface2 id="0" name="uav0"/>
+    </link>
+    <link node1="3" node2="5">
+      <iface2 id="0" name="qgc0"/>
+    </link>
+  </links>
+  <mobility_configurations>
+    <mobility_configuration node="3" model="basic_range">
+      <configuration name="range" value="275"/>
+      <configuration name="bandwidth" value="54000000"/>
+      <configuration name="jitter" value="0"/>
+      <configuration name="delay" value="20000"/>
+      <configuration name="error" value="0"/>
+      <configuration name="promiscuous" value="0"/>
+    </mobility_configuration>
+  </mobility_configurations>
+  <emane_global_configuration>
+    <emulator>
+      <configuration name="antennaprofilemanifesturi" value=""/>
+      <configuration name="controlportendpoint" value="0.0.0.0:47000"/>
+      <configuration name="eventservicedevice" value="ctrl0"/>
+      <configuration name="eventservicegroup" value="224.1.2.8:45703"/>
+      <configuration name="eventservicettl" value="1"/>
+      <configuration name="otamanagerchannelenable" value="1"/>
+      <configuration name="otamanagerdevice" value="ctrl0"/>
+      <configuration name="otamanagergroup" value="224.1.2.8:45702"/>
+      <configuration name="otamanagerloopback" value="0"/>
+      <configuration name="otamanagermtu" value="0"/>
+      <configuration name="otamanagerpartcheckthreshold" value="2"/>
+      <configuration name="otamanagerparttimeoutthreshold" value="5"/>
+      <configuration name="otamanagerttl" value="1"/>
+      <configuration name="stats.event.maxeventcountrows" value="0"/>
+      <configuration name="stats.ota.maxeventcountrows" value="0"/>
+      <configuration name="stats.ota.maxpacketcountrows" value="0"/>
+    </emulator>
+    <core>
+      <configuration name="platform_id_start" value="1"/>
+      <configuration name="nem_id_start" value="1"/>
+      <configuration name="link_enabled" value="1"/>
+      <configuration name="loss_threshold" value="30"/>
+      <configuration name="link_interval" value="1"/>
+      <configuration name="link_timeout" value="4"/>
+    </core>
+  </emane_global_configuration>
+  <session_origin lat="47.579166412353516" lon="-122.13232421875" alt="2.0" scale="100.0"/>
+  <session_options>
+    <configuration name="controlnet" value="ctrl0"/>
+    <configuration name="controlnet0" value="172.16.0.0/24"/>
+    <configuration name="controlnet1" value=""/>
+    <configuration name="controlnet2" value=""/>
+    <configuration name="controlnet3" value=""/>
+    <configuration name="controlnet_updown_script" value=""/>
+    <configuration name="enablerj45" value="1"/>
+    <configuration name="preservedir" value="0"/>
+    <configuration name="enablesdt" value="0"/>
+    <configuration name="sdturl" value="tcp://127.0.0.1:50000/"/>
+    <configuration name="ovs" value="0"/>
+  </session_options>
+  <session_metadata>
+    <configuration name="canvas" value="{&quot;gridlines&quot;: true, &quot;dimensions&quot;: [2000, 2000], &quot;canvases&quot;: [{&quot;id&quot;: 1, &quot;wallpaper&quot;: null, &quot;wallpaper_style&quot;: 1, &quot;fit_image&quot;: false}]}"/>
+    <configuration name="edges" value="[]"/>
+    <configuration name="shapes" value="[]"/>
+    <configuration name="hidden" value="[]"/>
+  </session_metadata>
+  <default_services>
+    <node type="mdr">
+      <service name="zebra"/>
+      <service name="OSPFv3MDR"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="PC">
+      <service name="DefaultRoute"/>
+    </node>
+    <node type="prouter"/>
+    <node type="router">
+      <service name="zebra"/>
+      <service name="OSPFv2"/>
+      <service name="OSPFv3"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="host">
+      <service name="DefaultRoute"/>
+      <service name="SSH"/>
+    </node>
+    <node type="UAV">
+      <service name="DefaultRoute"/>
+      <service name="SSH"/>
+    </node>
+  </default_services>
+</scenario>

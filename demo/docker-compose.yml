@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+    station:
+        build: "./station"
+        privileged: true
+        cap_add:
+            - NET_ADMIN
+        ports:
+            - "5901:5901"        
+        entrypoint: bash -c "/net.sh && /entrypoint.sh"
+    uav:
+        build: "./uav"
+        privileged: true
+        cap_add:
+            - NET_ADMIN
+        environment: 
+            HEADLESS: 1
+            REMOTE_CORE: "http://demo_core_1:50051"
+        expose:
+            - "18570/udp"
+        tty: true        
+        entrypoint: bash -c "/net.sh && make px4_sitl gazebo"
+    core:
+        build: "./core"
+        ports:
+            - "2022:22"
+        environment: 
+            SSHKEY: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEA3XsR45C78ldbMxKHZJlNh6eTltjde89rgzSf14X7mSBZ38s+6Qb2UZNb+X/slCr2TslGuJwQdHgxngxQ4BX/fF6u3YGnf23yxr2XQUtOzKAI7G8yn8XobBxB+8mqba04GXlKVjy9EQNrP1FgfW3koOqXBk9Umj1EbFduG1ttHCc= gh0st@pluto"
+        tty: true
+        privileged: true
+        volumes: 
+            - ./shared:/shared
+        entrypoint: bash -c "/net.sh && /root/entryPoint.sh"

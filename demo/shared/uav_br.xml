@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario name="/shared/uav_br.xml">
+  <networks>
+    <network id="3" name="AdHocWiFi" model="basic_range" type="WIRELESS_LAN">
+      <position x="62" y="157" lat="47.57821530698399" lon="-122.13176504452385" alt="2.0"/>
+    </network>
+    <network id="4" name="uav0" type="RJ45">
+      <position x="310" y="549" lat="47.57583977888834" lon="-122.12953722261922" alt="2.0"/>
+    </network>
+    <network id="5" name="qgc0" type="RJ45">
+      <position x="670" y="460" lat="47.577288136647645" lon="-122.12597989409412" alt="2.0"/>
+    </network>
+  </networks>
+  <devices>
+    <device id="1" name="n1" type="UAV" class="" image="">
+      <position x="501.00994873046875" y="500.98004150390625" lat="47.5761307866211" lon="-122.1278213510556" alt="2.0"/>
+      <services>
+        <service name="DefaultRoute"/>
+        <service name="SSH"/>
+      </services>
+    </device>
+    <device id="2" name="n2" type="PC" class="" image="">
+      <position x="643" y="439" lat="47.57650639203828" lon="-122.12654583272312" alt="2.0"/>
+      <services>
+        <service name="DefaultRoute"/>
+        <service name="SSH"/>
+      </services>
+    </device>
+  </devices>
+  <links>
+    <link node1="3" node2="1">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:02" ip4="10.0.0.1" ip4_mask="24" ip6="2001::1" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="2">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:03" ip4="10.0.0.20" ip4_mask="24" ip6="2001::20" ip6_mask="128"/>
+    </link>
+    <link node1="4" node2="1">
+      <iface1 id="0" name="uav0"/>
+      <iface2 id="1" name="eth1" mac="00:00:00:aa:00:00" ip4="10.0.1.1" ip4_mask="24" ip6="2001::1" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0"/>
+    </link>
+    <link node1="5" node2="2">
+      <iface1 id="0" name="qgc0"/>
+      <iface2 id="1" name="eth1" mac="00:00:00:aa:00:01" ip4="10.0.2.20" ip4_mask="24" ip6="2001:1::20" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0"/>
+    </link>
+  </links>
+  <mobility_configurations>
+    <mobility_configuration node="3" model="basic_range">
+      <configuration name="range" value="275"/>
+      <configuration name="bandwidth" value="54000000"/>
+      <configuration name="jitter" value="0"/>
+      <configuration name="delay" value="20000"/>
+      <configuration name="error" value="0"/>
+      <configuration name="promiscuous" value="0"/>
+    </mobility_configuration>
+  </mobility_configurations>
+  <emane_global_configuration>
+    <emulator/>
+    <core>
+      <configuration name="platform_id_start" value="1"/>
+      <configuration name="nem_id_start" value="1"/>
+      <configuration name="link_enabled" value="1"/>
+      <configuration name="loss_threshold" value="30"/>
+      <configuration name="link_interval" value="1"/>
+      <configuration name="link_timeout" value="4"/>
+    </core>
+  </emane_global_configuration>
+  <session_origin lat="47.5791667" lon="-122.132322" alt="2.0" scale="100.0"/>
+  <session_options>
+    <configuration name="controlnet" value="ctrl0"/>
+    <configuration name="controlnet0" value="172.16.0.0/24"/>
+    <configuration name="controlnet1" value=""/>
+    <configuration name="controlnet2" value=""/>
+    <configuration name="controlnet3" value=""/>
+    <configuration name="controlnet_updown_script" value=""/>
+    <configuration name="enablerj45" value="1"/>
+    <configuration name="preservedir" value="0"/>
+    <configuration name="enablesdt" value="0"/>
+    <configuration name="sdturl" value="tcp://127.0.0.1:50000/"/>
+    <configuration name="ovs" value="0"/>
+  </session_options>
+  <session_metadata>
+    <configuration name="canvas c1" value="{name {Canvas1}} {refpt {0 0 47.5791667 -122.132322 2.0}} {scale 100.0} {size {2000 2000}}"/>
+    <configuration name="global_options" value="interface_names=no ip_addresses=yes ipv6_addresses=no node_labels=yes link_labels=yes show_api=no background_images=no annotations=yes grid=yes traffic_start=0"/>
+  </session_metadata>
+  <default_services>
+    <node type="mdr">
+      <service name="zebra"/>
+      <service name="OSPFv3MDR"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="PC">
+      <service name="DefaultRoute"/>
+    </node>
+    <node type="prouter"/>
+    <node type="router">
+      <service name="zebra"/>
+      <service name="OSPFv2"/>
+      <service name="OSPFv3"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="host">
+      <service name="DefaultRoute"/>
+      <service name="SSH"/>
+    </node>
+    <node type="UAV">
+      <service name="DefaultRoute"/>
+      <service name="SSH"/>
+    </node>
+  </default_services>
+</scenario>
