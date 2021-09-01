@@ -11,6 +11,7 @@ services:
             - "ground"
             - "default"
         entrypoint: bash -c "/net.sh && /entrypoint.sh"
+        #entrypoint: bash -c "/net-routed.sh && /entrypoint.sh"
     uav:
         build: "./uav"
         privileged: true
@@ -26,6 +27,7 @@ services:
             - "air"
             - "default"
         entrypoint: bash -c "/net.sh && make px4_sitl gazebo"
+        #entrypoint: bash -c "/net-routed.sh && make px4_sitl gazebo"
         #entrypoint: bash -c "/net.sh && tail -f /dev/null"
     core:
         build: "./core"

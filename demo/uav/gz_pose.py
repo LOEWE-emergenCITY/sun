@@ -27,6 +27,7 @@ z = 0.0
 last_update = time.time()
 
 print("capturing positions from gazebo...")
+single_node = False
 # works in python 3.0+
 for line in proc.stdout:
     line = line.decode("utf-8").strip()
@@ -50,4 +51,9 @@ for line in proc.stdout:
         # print(cmd)
         cmd = "core-pos 4 %f %f %f" % (base_x + x, base_y - y, z)
         os.system(cmd)
+        if not single_node:
+            cmd = "core-pos 1 %f %f %f" % (base_x + x, base_y - y, z)
+            if os.system(cmd) != 0:
+                print("No second node running, only updating one node position")
+                single_node = True
         last_update = time.time()

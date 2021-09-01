@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario name="/shared/uav_emane.xml">
+  <networks>
+    <network id="4" name="uav0" icon="/root/.coregui/icons/uav.png" canvas="0" type="RJ45">
+      <position x="499.92315673828125" y="534.027099609375" lat="47.575930229289355" lon="-122.12783333262415" alt="2.0"/>
+    </network>
+    <network id="5" name="qgc0" icon="" canvas="0" type="RJ45">
+      <position x="670.0" y="460.0" lat="47.576378842521486" lon="-122.12630550634637" alt="2.0"/>
+    </network>
+    <network id="3" name="emane3" icon="" canvas="1" model="emane_rfpipe" type="EMANE">
+      <position x="146.0" y="163.0" lat="47.57817866002037" lon="-122.13101267843516" alt="2.0"/>
+    </network>
+  </networks>
+  <devices>
+    <device id="1" name="n1" icon="" canvas="0" type="UAV" class="" image="">
+      <position x="500.92315673828125" y="499.0271301269531" lat="47.576142333842654" lon="-122.12782434947131" alt="2.0"/>
+      <services>
+        <service name="SSH"/>
+        <service name="DefaultRoute"/>
+      </services>
+    </device>
+    <device id="2" name="n2" icon="" canvas="0" type="PC" class="" image="">
+      <position x="643.0" y="439.0" lat="47.5765061043772" lon="-122.12654805147311" alt="2.0"/>
+      <services>
+        <service name="SSH"/>
+        <service name="DefaultRoute"/>
+      </services>
+    </device>
+  </devices>
+  <links>
+    <link node1="3" node2="2">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:04" ip4="10.0.0.20" ip4_mask="24" ip6="2001:0:0:1::14" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="1">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:05" ip4="10.0.0.1" ip4_mask="24" ip6="2001:0:0:1::15" ip6_mask="128"/>
+    </link>
+    <link node1="4" node2="1">
+      <iface1 id="0" name="uav0"/>
+      <iface2 id="1" name="eth1" mac="00:00:00:aa:00:00" ip4="10.0.1.1" ip4_mask="24" ip6="2001::1" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="5" node2="2">
+      <iface1 id="0" name="qgc0"/>
+      <iface2 id="1" name="eth1" mac="00:00:00:aa:00:01" ip4="10.0.2.20" ip4_mask="24" ip6="2001:1::20" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+  </links>
+  <emane_global_configuration>
+    <emulator>
+      <configuration name="antennaprofilemanifesturi" value=""/>
+      <configuration name="controlportendpoint" value="0.0.0.0:47000"/>
+      <configuration name="eventservicedevice" value="ctrl0"/>
+      <configuration name="eventservicegroup" value="224.1.2.8:45703"/>
+      <configuration name="eventservicettl" value="1"/>
+      <configuration name="otamanagerchannelenable" value="1"/>
+      <configuration name="otamanagerdevice" value="ctrl0"/>
+      <configuration name="otamanagergroup" value="224.1.2.8:45702"/>
+      <configuration name="otamanagerloopback" value="0"/>
+      <configuration name="otamanagermtu" value="0"/>
+      <configuration name="otamanagerpartcheckthreshold" value="2"/>
+      <configuration name="otamanagerparttimeoutthreshold" value="5"/>
+      <configuration name="otamanagerttl" value="1"/>
+      <configuration name="stats.event.maxeventcountrows" value="0"/>
+      <configuration name="stats.ota.maxeventcountrows" value="0"/>
+      <configuration name="stats.ota.maxpacketcountrows" value="0"/>
+    </emulator>
+    <core>
+      <configuration name="platform_id_start" value="1"/>
+      <configuration name="nem_id_start" value="1"/>
+      <configuration name="link_enabled" value="1"/>
+      <configuration name="loss_threshold" value="30"/>
+      <configuration name="link_interval" value="1"/>
+      <configuration name="link_timeout" value="4"/>
+    </core>
+  </emane_global_configuration>
+  <session_origin lat="47.579166412353516" lon="-122.13232421875" alt="2.0" scale="100.0"/>
+  <session_options>
+    <configuration name="controlnet" value="ctrl0"/>
+    <configuration name="controlnet0" value="172.16.0.0/24"/>
+    <configuration name="controlnet1" value=""/>
+    <configuration name="controlnet2" value=""/>
+    <configuration name="controlnet3" value=""/>
+    <configuration name="controlnet_updown_script" value=""/>
+    <configuration name="enablerj45" value="1"/>
+    <configuration name="preservedir" value="0"/>
+    <configuration name="enablesdt" value="0"/>
+    <configuration name="sdturl" value="tcp://127.0.0.1:50000/"/>
+    <configuration name="ovs" value="0"/>
+  </session_options>
+  <session_metadata>
+    <configuration name="shapes" value="[]"/>
+    <configuration name="hidden" value="[]"/>
+    <configuration name="canvas" value="{&quot;gridlines&quot;: true, &quot;dimensions&quot;: [2000, 2000], &quot;canvases&quot;: [{&quot;id&quot;: 1, &quot;wallpaper&quot;: null, &quot;wallpaper_style&quot;: 1, &quot;fit_image&quot;: false}]}"/>
+    <configuration name="edges" value="[]"/>
+  </session_metadata>
+  <default_services>
+    <node type="mdr">
+      <service name="zebra"/>
+      <service name="OSPFv3MDR"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="PC">
+      <service name="DefaultRoute"/>
+    </node>
+    <node type="prouter"/>
+    <node type="router">
+      <service name="zebra"/>
+      <service name="OSPFv2"/>
+      <service name="OSPFv3"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="host">
+      <service name="DefaultRoute"/>
+      <service name="SSH"/>
+    </node>
+    <node type="UAV">
+      <service name="DefaultRoute"/>
+      <service name="SSH"/>
+    </node>
+  </default_services>
+</scenario>

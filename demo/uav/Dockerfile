@@ -14,4 +14,5 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY net.sh /net.sh 
+COPY net-routed.sh /net-routed.sh
 

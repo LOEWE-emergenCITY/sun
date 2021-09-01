@@ -19,4 +19,4 @@ COPY xstartup /root/.vnc/
 EXPOSE 5901
 
 COPY net.sh /net.sh 
-
+COPY net-routed.sh /net-routed.sh
