@@ -50,8 +50,9 @@ for line in proc.stdout:
         #print("position: ", x, y, z, '\r\n')
         # print(cmd)
         cmd = "core-pos 4 %f %f %f" % (base_x + x, base_y - y, z)
-        os.system(cmd)
-        if not single_node:
+        if os.system(cmd) != 0:
+            single_node = False
+        elif not single_node:
             cmd = "core-pos 1 %f %f %f" % (base_x + x, base_y - y, z)
             if os.system(cmd) != 0:
                 print("No second node running, only updating one node position")

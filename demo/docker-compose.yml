@@ -7,6 +7,8 @@ services:
             - NET_ADMIN
         ports:
             - "15901:5901"
+        volumes: 
+            - ./shared:/shared
         networks:
             - "ground"
             - "default"
@@ -23,6 +25,8 @@ services:
         expose:
             - "18570/udp"
         tty: true
+        volumes: 
+            - ./shared:/shared
         networks:
             - "air"
             - "default"

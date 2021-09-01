@@ -68,3 +68,9 @@ You can access the 3 different machines also via `docker`:
 - station: `docker exec -it demo_station_1 bash`
 - uav: `docker exec -it demo_uav_1 bash`
 - core: `docker exec -it demo_core_1 bash`
+
+## Different network setups
+
+There are `routed` and `direct` network setups. At the moment advanced PHY layers such as EMANE require routed scenarios. 
+Any scenario file specified in `shared/experiment.conf` that begins with `uav_routed` will get the network setup of the default `uav_routed.xml` scenario. Any other scenario names will be setup as if the *station* and *uav* instances where directly within the virtual network.
+
