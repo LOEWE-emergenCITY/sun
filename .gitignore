@@ -1,2 +1,4 @@
 demo/shared/results*/
 demo/shared/*.log
+*.pyc
+*.DS_Store
