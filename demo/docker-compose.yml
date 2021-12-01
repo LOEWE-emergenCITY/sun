@@ -46,6 +46,13 @@ services:
             - ./shared:/shared
         entrypoint: bash -c "/net.sh && /root/entryPoint.sh"
         #entrypoint: bash -c "service ssh start && tail -f /dev/null"
+    rl:
+        build: "./rl"
+        privileged: true
+        networks:
+            - "default"
+        tty: true
+        entrypoint: bash -c "python3 /environment.py"
 
 networks: 
     default:

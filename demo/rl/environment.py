@@ -25,13 +25,35 @@ class CoreGazeboEnv(gym.Env):
         return self.get_observation(physical_state, network_state)
 
     def send_actions(self, action):
-        pass  # TODO send the flight controller the desired actions for the next time step
+        pass  # TODO send the flight controller the desired actions for the next time step, see MavSDK
 
     def poll_gazebo_state(self):
+        print("capturing positions from gazebo...")
+
+        result = subprocess.run(['docker', 'exec', '-it', 'px4', 'bash', '-c', 'gz topic -e /gazebo/default/pose/info'],
+                                stdout=subprocess.PIPE)
+
+        scanning = False
+        for line in result.stdout:
+            line = line.decode("utf-8").strip()
+            if '"iris"' in line:
+                x = 0.0
+                y = 0.0
+                z = 0.0
+                scanning = True
+            elif 'x:' in line and scanning:
+                x = float(line.split(' ')[1])
+            elif 'y:' in line and scanning:
+                y = float(line.split(' ')[1])
+            elif 'z' in line and scanning:
+                scanning = False
+                z = float(line.split(' ')[1])
+                print("position: ", x, y, z, '\r\n')
+        
         pass  # TODO poll gazebo container information
 
     def poll_network_state(self):
-        pass  # TODO poll core container information
+        pass  # TODO poll core container information: The Core API doesn't work?
 
     def get_observation(self, physical_state, network_state):
         return np.array(self.observation_space.sample())  # TODO
