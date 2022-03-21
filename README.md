@@ -37,6 +37,8 @@
 - docker-compose
 - vnc viewer
 
+You might need *ebtables* and *sch_netem* kernel modules loaded!
+
 ## Building demo setup
 
 ```

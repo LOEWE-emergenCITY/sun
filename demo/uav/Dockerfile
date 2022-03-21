@@ -1,6 +1,6 @@
 FROM rust:1.53 as builder
 WORKDIR /root
-RUN rustup component add rustfmt && cargo install --root /usr/local coreemu
+RUN rustup component add rustfmt && cargo install --root /usr/local --version 0.1.3 coreemu
 
 FROM gh0st42/px4-emu
 

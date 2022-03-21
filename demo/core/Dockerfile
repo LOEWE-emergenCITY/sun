@@ -1,4 +1,4 @@
-FROM gh0st42/coreemu-lab
+FROM gh0st42/coreemu-lab:coreemu7
 
 # install stuff for vnc session
 
