@@ -1,3 +1,8 @@
+FROM rust:1.61 as builder
+WORKDIR /root
+RUN cargo install --bins --examples --root /usr/local --version 0.17.3 dtn7
+RUN cargo install --bins --examples --root /usr/local --version 0.6.1 dtn7-plus
+
 FROM gh0st42/coreemu-lab:coreemu7
 
 # install stuff for vnc session
@@ -7,6 +12,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     tightvncserver firefox wmctrl \
     gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl \    
     && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /usr/local/bin/* /usr/local/bin/
 
 RUN touch /root/.Xresources
 RUN touch /root/.Xauthority
