@@ -1,7 +1,8 @@
-FROM rust:1.57 as builder
+FROM rust:1.61 as builder
 WORKDIR /root
 RUN rustup component add rustfmt
-RUN cargo install --bins --examples --root /usr/local --version 0.17.3 dtn7
+RUN cargo install --bins --examples --root /usr/local --git https://github.com/dtn7/dtn7-rs --rev 7519b01 dtn7
+RUN cargo install --bins --examples --root /usr/local --git https://github.com/dtn7/dtn7-rs --rev 7519b01 examples
 RUN cargo install --bins --examples --root /usr/local --version 0.6.1 dtn7-plus
 RUN cargo install --bins --examples --root /usr/local --version 0.1.3 coreemu
 
