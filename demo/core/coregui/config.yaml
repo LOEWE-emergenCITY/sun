@@ -32,6 +32,20 @@ nodes:
       - DefaultMulticastRoute
       - dtnd
       - dtnecho
+  - !CustomNode
+    image: /root/.coregui/icons/cell-phone-96.png
+    name: Mobile
+    services:
+      - DefaultMulticastRoute
+      - dtnd
+      - dtnecho
+  - !CustomNode
+    image: /root/.coregui/icons/smart-home-96.png
+    name: SmartHome
+    services:
+      - DefaultMulticastRoute
+      - dtnd
+      - dtnecho
 observers: []
 preferences: !PreferencesConfig
   editor: vim
