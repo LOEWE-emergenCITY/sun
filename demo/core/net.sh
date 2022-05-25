@@ -12,4 +12,8 @@ if test -f "/tmp/.X1-lock"; then
   	  rm /tmp/.X11-unix/X1
 fi
 
+/usr/local/bin/fakegps.sh > /tmp/fakegps.log 2>&1 &
+
+/update-custom-services.sh
+
 /usr/bin/tightvncserver -geometry 1280x800 -depth 24 &

@@ -1,12 +1,22 @@
+FROM rust:1.61 as builder
+WORKDIR /root
+RUN rustup component add rustfmt
+RUN cargo install --bins --examples --root /usr/local --git https://github.com/dtn7/dtn7-rs --rev 7519b01 dtn7
+RUN cargo install --bins --examples --root /usr/local --git https://github.com/dtn7/dtn7-rs --rev 7519b01 examples
+RUN cargo install --bins --examples --root /usr/local --version 0.6.1 dtn7-plus
+RUN cargo install --bins --examples --root /usr/local --version 0.1.3 coreemu
+
 FROM gh0st42/coreemu-lab:coreemu7
 
 # install stuff for vnc session
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     apt-get install -y lxde-core lxterminal \
-    tightvncserver firefox wmctrl \
+    tightvncserver firefox wmctrl xterm \
     gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl \    
     && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /usr/local/bin/* /usr/local/bin/
 
 RUN touch /root/.Xresources
 RUN touch /root/.Xauthority
@@ -25,6 +35,15 @@ RUN apt-get update && \
 # COPY xstartup with start for lxde
 COPY xstartup /root/.vnc/
 COPY coreemu.sh /root/Desktop
+
+RUN mkdir -p /root/.core/myservices && mkdir -p /root/.coregui/custom_services && mkdir -p /root/.coregui/icons
+COPY core_services/* /root/.core/myservices/
+COPY coregui/config.yaml /root/.coregui/
+COPY coregui/icons/* /root/.coregui/icons/
+COPY scripts/fakegps.sh /usr/local/bin/fakegps.sh
+
+COPY update-custom-services.sh /update-custom-services.sh
+COPY Xdefaults /root/.Xdefaults
 
 RUN echo "export USER=root" >> /root/.bashrc
 ENV USER root
