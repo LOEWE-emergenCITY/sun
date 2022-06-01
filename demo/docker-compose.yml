@@ -7,7 +7,7 @@ services:
             - NET_ADMIN
         ports:
             - "15901:5901"
-        volumes: 
+        volumes:
             - ./shared:/shared
         networks:
             - "ground"
@@ -19,18 +19,18 @@ services:
         privileged: true
         cap_add:
             - NET_ADMIN
-        environment: 
+        environment:
             HEADLESS: 1
             REMOTE_CORE: "http://demo_core_1:50051"
         expose:
             - "18570/udp"
         tty: true
-        volumes: 
+        volumes:
             - ./shared:/shared
         networks:
             - "air"
             - "default"
-        entrypoint: bash -c "/net.sh && make px4_sitl gazebo"
+        entrypoint: bash -c "/net.sh && make px4_sitl gazebo___baylands"
         #entrypoint: bash -c "/net-routed.sh && make px4_sitl gazebo"
         #entrypoint: bash -c "/net.sh && tail -f /dev/null"
     core:
@@ -38,20 +38,20 @@ services:
         ports:
             - "2022:22"
             - "15902:5901"
-        environment: 
+        environment:
             SSHKEY: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEA3XsR45C78ldbMxKHZJlNh6eTltjde89rgzSf14X7mSBZ38s+6Qb2UZNb+X/slCr2TslGuJwQdHgxngxQ4BX/fF6u3YGnf23yxr2XQUtOzKAI7G8yn8XobBxB+8mqba04GXlKVjy9EQNrP1FgfW3koOqXBk9Umj1EbFduG1ttHCc= gh0st@pluto"
         tty: true
         privileged: true
-        networks: 
+        networks:
             - "air"
             - "ground"
             - "default"
-        volumes: 
+        volumes:
             - ./shared:/shared
         entrypoint: bash -c "/net.sh && /root/entryPoint.sh"
         #entrypoint: bash -c "service ssh start && tail -f /dev/null"
 
-networks: 
+networks:
     default:
         driver: bridge
     air:

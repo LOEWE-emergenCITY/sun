@@ -7,7 +7,7 @@ sleep 5
 echo "ground station: vnc://127.0.0.1:15901"
 echo "core network: vnc://127.0.0.1:15902"
 echo "core network: ssh://root@127.0.0.1:2022"
-sleep 1
+sleep 2
 docker exec -it demo_core_1 core-cli node edit -i 4 -p 100,100 -ic /root/.coregui/icons/uav.png
 sleep 1
 docker exec -it demo_uav_1 python3 /usr/local/bin/gz_pose.py
