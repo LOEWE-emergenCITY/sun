@@ -22,6 +22,9 @@ services:
         environment:
             HEADLESS: 1
             REMOTE_CORE: "http://demo_core_1:50051"
+            PX4_HOME_LAT: 49.860541
+            PX4_HOME_LON: 8.676634
+            PX4_HOME_ALT: 181
         expose:
             - "18570/udp"
         tty: true
@@ -30,7 +33,8 @@ services:
         networks:
             - "air"
             - "default"
-        entrypoint: bash -c "/net.sh && make px4_sitl gazebo___baylands"
+        #entrypoint: bash -c "/net.sh && make px4_sitl gazebo___baylands"
+        entrypoint: bash -c "/net.sh && make px4_sitl gazebo"
         #entrypoint: bash -c "/net-routed.sh && make px4_sitl gazebo"
         #entrypoint: bash -c "/net.sh && tail -f /dev/null"
     core:
