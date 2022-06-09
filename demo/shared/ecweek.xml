@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario name="emergenCITY Week 2022">
+  <networks>
+    <network id="3" name="AdHocWiFi" icon="" canvas="0" type="WIRELESS_LAN">
+      <position x="550.0" y="110.0" lat="47.578215019332305" lon="-122.13176726327383" alt="2.0"/>
+    </network>
+    <network id="4" name="uav0" canvas="0" type="RJ45">
+      <position x="150.0" y="595.0" lat="47.57614232348599" lon="-122.12782378939498" alt="2.0"/>
+    </network>
+    <network id="5" name="qgc0" icon="/root/.coregui/icons/pc.png" canvas="0" type="RJ45">
+      <position x="210.0" y="540.0" lat="47.57721512905405" lon="-122.12774281080098" alt="2.0"/>
+    </network>
+  </networks>
+  <devices>
+    <device id="2" name="p1" icon="" canvas="1" type="Mobile" class="" image="">
+      <position x="1020.592781760616" y="35.69983105423296" lat="47.57763326731151" lon="-122.13003351477549" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+    <device id="6" name="p2" icon="" canvas="1" type="Mobile" class="" image="">
+      <position x="260.0" y="376.0" lat="47.57837863592353" lon="-122.12889265436465" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+    <device id="7" name="p3" icon="" canvas="1" type="Mobile" class="" image="">
+      <position x="191.886338627215" y="356.943230424235" lat="47.57871798722352" lon="-122.1283177325828" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+    <device id="8" name="p4" icon="" canvas="1" type="Mobile" class="" image="">
+      <position x="965.735525189067" y="134.675602264267" lat="47.578748286339774" lon="-122.12713195640777" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+    <device id="9" name="p5" icon="" canvas="1" type="Mobile" class="" image="">
+      <position x="1009.492426392903" y="216.555580506048" lat="47.57868768808973" lon="-122.1260270286083" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+    <device id="10" name="p6" icon="" canvas="1" type="Mobile" class="" image="">
+      <position x="85.71167857418959" y="100.52241647873399" lat="47.57874222651793" lon="-122.12455379154235" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+    <device id="11" name="p7" icon="" canvas="1" type="Mobile" class="" image="">
+      <position x="783.3" y="70.0" lat="47.578069581933086" lon="-122.12457175784803" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+    <device id="12" name="p8" icon="" canvas="1" type="Mobile" class="" image="">
+      <position x="807.740130578334" y="164.12051912505" lat="47.577324208921404" lon="-122.12418548227585" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+    <device id="13" name="p9" icon="" canvas="1" type="Mobile" class="" image="">
+      <position x="442.227019534168" y="216.71326589346597" lat="47.57714240901623" lon="-122.125479056285" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+    <device id="14" name="p10" icon="" canvas="1" type="Mobile" class="" image="">
+      <position x="221.186687811562" y="186.37234718823498" lat="47.57652428461706" lon="-122.12478735351623" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+    <device id="1" name="ACN" icon="" canvas="1" type="DTN" class="" image="">
+      <position x="500.985595703125" y="499.02880859375" lat="47.57614232367093" lon="-122.12782378857253" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+    <device id="15" name="eHUB" icon="" canvas="1" type="SmartHome" class="" image="">
+      <position x="150.0" y="595.0" lat="47.57653640477345" lon="-122.13031199251355" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
+      </services>
+    </device>
+  </devices>
+  <links>
+    <link node1="3" node2="4">
+      <iface2 id="0" name="uav0"/>
+    </link>
+    <link node1="3" node2="5">
+      <iface2 id="0" name="qgc0"/>
+    </link>
+    <link node1="3" node2="2">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:02" ip4="10.0.0.31" ip4_mask="24" ip6="2001::15" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="6">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:04" ip4="10.0.0.30" ip4_mask="24" ip6="2001::14" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="7">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:05" ip4="10.0.0.32" ip4_mask="24" ip6="2001::15" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="8">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:06" ip4="10.0.0.33" ip4_mask="24" ip6="2001::16" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="9">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:07" ip4="10.0.0.34" ip4_mask="24" ip6="2001::17" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="10">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:08" ip4="10.0.0.35" ip4_mask="24" ip6="2001::18" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="11">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:09" ip4="10.0.0.36" ip4_mask="24" ip6="2001::19" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="12">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:0a" ip4="10.0.0.37" ip4_mask="24" ip6="2001::20" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="13">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:0b" ip4="10.0.0.38" ip4_mask="24" ip6="2001::21" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="14">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:0c" ip4="10.0.0.38" ip4_mask="24" ip6="2001::21" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="15">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:03" ip4="10.0.0.50" ip4_mask="24" ip6="2001::50" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="1">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:0d" ip4="10.0.0.60" ip4_mask="24" ip6="2001::60" ip6_mask="128"/>
+    </link>
+  </links>
+  <mobility_configurations>
+    <mobility_configuration node="3" model="basic_range">
+      <configuration name="range" value="100"/>
+      <configuration name="bandwidth" value="54000000"/>
+      <configuration name="jitter" value="0"/>
+      <configuration name="delay" value="20000"/>
+      <configuration name="error" value="0"/>
+      <configuration name="promiscuous" value="0"/>
+    </mobility_configuration>
+  </mobility_configurations>
+  <emane_global_configuration>
+    <emulator>
+      <configuration name="antennaprofilemanifesturi" value=""/>
+      <configuration name="controlportendpoint" value="0.0.0.0:47000"/>
+      <configuration name="eventservicedevice" value="ctrl0"/>
+      <configuration name="eventservicegroup" value="224.1.2.8:45703"/>
+      <configuration name="eventservicettl" value="1"/>
+      <configuration name="otamanagerchannelenable" value="1"/>
+      <configuration name="otamanagerdevice" value="ctrl0"/>
+      <configuration name="otamanagergroup" value="224.1.2.8:45702"/>
+      <configuration name="otamanagerloopback" value="0"/>
+      <configuration name="otamanagermtu" value="0"/>
+      <configuration name="otamanagerpartcheckthreshold" value="2"/>
+      <configuration name="otamanagerparttimeoutthreshold" value="5"/>
+      <configuration name="otamanagerttl" value="1"/>
+      <configuration name="stats.event.maxeventcountrows" value="0"/>
+      <configuration name="stats.ota.maxeventcountrows" value="0"/>
+      <configuration name="stats.ota.maxpacketcountrows" value="0"/>
+    </emulator>
+    <core>
+      <configuration name="platform_id_start" value="1"/>
+      <configuration name="nem_id_start" value="1"/>
+      <configuration name="link_enabled" value="1"/>
+      <configuration name="loss_threshold" value="30"/>
+      <configuration name="link_interval" value="1"/>
+      <configuration name="link_timeout" value="4"/>
+    </core>
+  </emane_global_configuration>
+  <session_origin lat="47.579166412353516" lon="-122.13232421875" alt="2.0" scale="100.0"/>
+  <session_options>
+    <configuration name="controlnet" value="ctrl0"/>
+    <configuration name="controlnet0" value="172.16.0.0/24"/>
+    <configuration name="controlnet1" value=""/>
+    <configuration name="controlnet2" value=""/>
+    <configuration name="controlnet3" value=""/>
+    <configuration name="controlnet_updown_script" value=""/>
+    <configuration name="enablerj45" value="1"/>
+    <configuration name="preservedir" value="0"/>
+    <configuration name="enablesdt" value="0"/>
+    <configuration name="sdturl" value="tcp://127.0.0.1:50000/"/>
+    <configuration name="ovs" value="0"/>
+  </session_options>
+  <session_metadata>
+    <configuration name="canvas" value="{&quot;gridlines&quot;: true, &quot;dimensions&quot;: [2000, 2000], &quot;canvases&quot;: [{&quot;id&quot;: 1, &quot;wallpaper&quot;: null, &quot;wallpaper_style&quot;: 1, &quot;fit_image&quot;: false}]}"/>
+    <configuration name="edges" value="[]"/>
+    <configuration name="shapes" value="[]"/>
+    <configuration name="hidden" value="[]"/>
+  </session_metadata>
+  <default_services>
+    <node type="mdr">
+      <service name="zebra"/>
+      <service name="OSPFv3MDR"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="PC">
+      <service name="DefaultRoute"/>
+    </node>
+    <node type="prouter"/>
+    <node type="router">
+      <service name="zebra"/>
+      <service name="OSPFv2"/>
+      <service name="OSPFv3"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="host">
+      <service name="DefaultRoute"/>
+      <service name="SSH"/>
+    </node>
+    <node type="UAV">
+      <service name="DefaultRoute"/>
+      <service name="SSH"/>
+    </node>
+  </default_services>
+</scenario>
+
