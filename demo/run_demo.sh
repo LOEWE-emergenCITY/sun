@@ -8,7 +8,15 @@ echo "ground station: vnc://127.0.0.1:15901"
 echo "core network: vnc://127.0.0.1:15902"
 echo "core network: ssh://root@127.0.0.1:2022"
 sleep 2
-docker exec -it demo_core_1 core-cli node edit -i 4 -p 100,100 -ic /root/.coregui/icons/uav.png
+BASE_X=$(docker exec -it demo_core_1 core-pos uav0 | egrep -ex | awk '{print $2}' | sed 's/,*\r*$//')
+BASE_Y=$(docker exec -it demo_core_1 core-pos uav0 | egrep -ey | awk '{print $2}' | sed 's/,*\r*$//')
+docker exec -it demo_core_1 core-cli node edit -i 4 -p $BASE_X,$BASE_Y -ic /root/.coregui/icons/uav.png
+sleep 1
+docker exec -it demo_uav_1 /root/PX4-Autopilot/build/px4_sitl_default/bin/px4-param set NAV_RCL_ACT 0
+sleep 1
+docker exec -it demo_uav_1 /root/PX4-Autopilot/build/px4_sitl_default/bin/px4-param set MPC_XY_CRUISE 20
+sleep 1
+docker exec -it demo_uav_1 /root/PX4-Autopilot/build/px4_sitl_default/bin/px4-param set MPC_XY_VEL_MAX 20
 sleep 1
 docker exec -it demo_uav_1 python3 /usr/local/bin/gz_pose.py
 
@@ -17,3 +25,5 @@ docker exec -it demo_uav_1 python3 /usr/local/bin/gz_pose.py
 
 docker-compose stop
 docker-compose rm -f core
+docker-compose rm -f uav
+docker-compose rm -f station
