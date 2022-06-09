@@ -14,8 +14,15 @@ proc = subprocess.Popen(
 # proc = subprocess.Popen(
 # ['docker', 'exec', '-it', 'px4', 'bash', '-c', 'gz topic -e /gazebo/default/pose/info'], stdout=subprocess.PIPE)
 
-base_x = 500
-base_y = 500
+initial_pos = subprocess.run(['core-pos', 'uav0'], stdout=subprocess.PIPE)
+for i in initial_pos.stdout.decode('utf-8').split('\n'):
+    i = i.strip().rstrip(',')
+    if i.startswith('x: '):
+        base_x = float(i.split(': ')[1])
+    if i.startswith('y: '):
+        base_y = float(i.split(': ')[1])
+
+print("Initial position: " + str(base_x) + " " + str(base_y))
 
 wait_per_update_in_s = 0.2
 
