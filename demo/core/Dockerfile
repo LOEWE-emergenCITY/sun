@@ -40,7 +40,7 @@ RUN mkdir -p /root/.core/myservices && mkdir -p /root/.coregui/custom_services &
 COPY core_services/* /root/.core/myservices/
 COPY coregui/config.yaml /root/.coregui/
 COPY coregui/icons/* /root/.coregui/icons/
-COPY scripts/fakegps.sh /usr/local/bin/fakegps.sh
+COPY scripts/* /usr/local/bin/
 
 COPY update-custom-services.sh /update-custom-services.sh
 COPY Xdefaults /root/.Xdefaults
