@@ -1,0 +1,94 @@
+wtf:
+  colors:
+    background: black
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+    checked: yellow
+    highlight: 
+      fore: black
+      back: gray
+    rows:
+      even: yellow
+      odd: white
+    exitMessage:
+      display: false
+  grid:
+    # How _wide_ the columns are, in terminal characters. In this case we have
+    # four columns, each of which are 35 characters wide.
+    columns: [25, 35, 35, 35, 25]
+    # How _high_ the rows are, in terminal lines. In this case we have four rows
+    # that support ten line of text and one of four.
+    rows: [12, 10, 10, 10, 4]
+  refreshInterval: 100ms
+  openFileUtil: "open"
+  mods:
+    textfile:
+      title: "Simulated UAV Network - DTN Status"
+      border: false
+      enabled: true
+      filePaths:
+      - "banner.txt"      
+      format: false      
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 5
+      refreshInterval: 15s
+      wrapText: false
+    # You can have multiple widgets of the same type.
+    # The "key" is the name of the widget and the type is the actual
+    # widget you want to implement.
+    peers:
+      title: "peers"      
+      args: []
+      cmd: "./dtn7-peers"
+      type: "cmdrunner"
+      pty: false
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true 
+      position:
+        top: 1
+        left: 2
+        height: 2
+        width: 1
+      refreshInterval: 2s
+    bundles:
+      title: "bundles"      
+      args: []
+      cmd: "./dtn7-bundles"
+      type: "cmdrunner"
+      pty: false
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true      
+      position:
+        top: 1
+        left: 3
+        height: 2
+        width: 1
+      refreshInterval: 2s    
+    date:
+      title: "xy"      
+      args: []
+      cmd: "./core-xy"
+      type: "cmdrunner"
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true      
+      position:
+        top: 1
+        left: 1
+        height: 2
+        width: 1
+      refreshInterval: 300ms
+    

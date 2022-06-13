@@ -1,0 +1,3 @@
+#!/bin/sh
+
+docker exec demo_core_1 dump_xy.sh
