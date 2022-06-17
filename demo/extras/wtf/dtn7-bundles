@@ -1,5 +1,5 @@
 #!/bin/sh
 
-docker exec demo_core_1 cea 'dtnquery bundles | grep -e dtn: -e ipn: | wc -l' 2>&1 | grep "\S" | sed 's/\# HOST: //g' | sed 's/\r//g' | while read l1; do read l2; echo "$l1\t\t$l2"; done
+docker exec demo_core_1 cea 'dtnquery bundles | grep -e dtn: -e ipn: | wc -l' 2>&1 | grep "\S" | sed 's/\# HOST: //g' | sed 's/\r//g' | while read l1; do read l2; printf ' %-15s' "$l1"; echo $l2; done
 
 echo
