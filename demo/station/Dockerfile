@@ -38,6 +38,10 @@ RUN mkdir /apps && cd /apps &&\
 
 COPY --from=builder /usr/local/bin/* /usr/local/bin/
 
+RUN apt-get update
+RUN apt-get install -y python3-pip tcpdump
+RUN pip3 install mavsdk mavproxy
+
 COPY missions/* /home/test/
 
 # COPY xstartup with start for lxde

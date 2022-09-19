@@ -24,6 +24,8 @@ RUN apt-get update && \
     apt-get install net-tools iproute2 iputils-ping vlan iptables ethtool babeld wget -y && \
     rm -rf /var/lib/apt/lists/*
 
+RUN pip3 install mavproxy
+
 #RUN mkdir -p /root/.gazebo/models
 #WORKDIR /root/.gazebo/models
 #RUN wget -r -l3 -np -R "index.html*" -R "*.tar.gz" -nH http://models.gazebosim.org/baylands/
