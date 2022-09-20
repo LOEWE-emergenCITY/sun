@@ -42,7 +42,8 @@ RUN apt-get update
 RUN apt-get install -y python3-pip tcpdump
 RUN pip3 install mavsdk mavproxy
 
-COPY missions/* /home/test/
+COPY missions/* /home/test/missions/
+COPY mission_scripts/* /usr/local/bin/ 
 
 # COPY xstartup with start for lxde
 COPY xstartup /root/.vnc/
