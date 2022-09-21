@@ -39,11 +39,13 @@ RUN mkdir /apps && cd /apps &&\
 COPY --from=builder /usr/local/bin/* /usr/local/bin/
 
 RUN apt-get update
-RUN apt-get install -y python3-pip tcpdump
-RUN pip3 install mavsdk mavproxy
+RUN apt-get install -y python3-pip tcpdump python3-tk
+RUN pip3 install mavsdk mavproxy appjar
 
 COPY missions/* /home/test/missions/
-COPY mission_scripts/* /usr/local/bin/ 
+COPY mission_scripts/* /usr/local/bin/
+COPY mission_scripts/autostart_mission.sh /root/Desktop
+
 
 # COPY xstartup with start for lxde
 COPY xstartup /root/.vnc/

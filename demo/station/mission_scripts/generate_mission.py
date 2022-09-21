@@ -9,4 +9,3 @@ elements = f.readlines()
 for element in elements:
     exec(element)
 f.close
-print(p1)
