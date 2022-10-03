@@ -9,8 +9,8 @@ from mavsdk import System
 import mavsdk.mission_raw 
 
 
-async def run():
-    app = gui()
+async def surveyrun():
+    app.hideSubWindow("survey")
     drone = System()#mavsdk_server_address="localhost", port=50051
     print("trying to connect...")
     await drone.connect(system_address="udp://:14540")
@@ -33,7 +33,7 @@ async def run():
             print("-- Global position estimate OK")
             break
     
-    app.infoBox('Survey Start', 'Ready to start the survey?', parent=None)
+    #app.infoBox('UAV connected', 'Ready to start the survey?', parent=None)
 
     print("-- Arming")
     await drone.action.arm()
@@ -51,21 +51,31 @@ async def run():
             await drone.action.hold()
             break
 
-    #while not(await drone.mission.is_mission_finished()):
-    #    sleep(5)
         
     print(f"survey finished, found {len(elements)-2} users")
+    app.showSubWindow("mission")
+    app.destroySubWindow("survey")
 
+async def missionrun():
+    drone = System()#mavsdk_server_address="localhost", port=50051
+    print("trying to connect...")
+    await drone.connect(system_address="udp://:14540")
+
+    print("Waiting for drone to connect...")
+    async for state in drone.core.connection_state():
+        if state.is_connected:
+            print(f"-- Connected to drone!")
+            break
+
+        
     mission_import_data = await drone.mission_raw.import_qgroundcontrol_mission("/home/test/missions/mission12.plan")
     print(f"{len(mission_import_data.mission_items)} mission items imported")
     await drone.mission_raw.upload_mission(mission_import_data.mission_items)
     
     print("Mission uploaded")
 
-    app.infoBox('Mission Start', 'Ready to start the mission?', parent=None)
+    #app.infoBox('Mission Start', 'Ready to start the mission?', parent=None)
 
-    #print("-- Arming")
-    #await drone.action.arm()
 
     print("-- Starting mission")
     await drone.mission_raw.start_mission()
@@ -76,6 +86,38 @@ async def run():
               f"{mission_progress.total}"
               f"users served")
 
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(run())
+def surveypress(btn):
+    asyncio.get_event_loop().run_until_complete(surveyrun())
+
+def missionpress():
+    asyncio.get_event_loop().run_until_complete(missionrun())
+
+app = gui()
+#survey window
+app.startSubWindow("survey", modal=True)
+app.setFont(12)
+#TODO show image of disaster site, export gif from matlab 
+app.addMessage("overview", """the disaster site is shown above. The area can 
+be scanned to find people who want to communicate.""")
+app.addLabel("l1", "Start Survey?")
+app.addButton("start", surveypress)
+#TODO add container that can be opened during runtime
+app.addMeter("survprog")
+app.setMeterFill("survprog", "red")
+app.setMeter("survprog",0)
+app.stopSubWindow()
+
+#mission window
+app.startSubWindow("mission", modal=True)
+app.setFont(12)
+app.addMessage("overview2", f"""survey finished, found {len(elements)-2} users""")
+#TODO add interface to trigger mission generation 
+#TODO add interface asking to download the mission in QGC
+app.addLabel("l2", "Start Mission?")
+app.addButton("start2", missionpress)
+#TODO add container that can be opened during runtime
+app.addMeter("progress2")
+app.setMeterFill("progress2", "red")
+app.stopSubWindow()
+
+app.go(startWindow ="survey")
