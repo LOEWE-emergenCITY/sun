@@ -9,13 +9,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 RUN cargo install --bins --examples --root /usr/local --version 0.1.5 coreemu
 
-FROM ubuntu:focal-20220426
-RUN  apt-get update
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y lxde-core lxterminal
-RUN apt-get -y install tightvncserver firefox nano wmctrl iproute2 \
+FROM ubuntu:focal
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y lxde-core lxterminal \
+    tightvncserver firefox nano wmctrl iproute2 \
     gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl \
-    wget sudo less net-tools iputils-ping babeld libx11-xcb1 libxcb-xinerama0 && \
+    wget sudo less net-tools iputils-ping babeld libx11-xcb1 libxcb-xinerama0 \
+    python3-pip tcpdump python3-tk build-essential python3-dev && \
     apt-get remove modemmanager -y && rm -rf /var/lib/apt/lists/*
 
 # files for VNC
@@ -38,8 +38,6 @@ RUN mkdir /apps && cd /apps &&\
 
 COPY --from=builder /usr/local/bin/* /usr/local/bin/
 
-RUN apt-get update
-RUN apt-get install -y python3-pip tcpdump python3-tk
 RUN pip3 install mavsdk mavproxy appjar
 
 COPY missions/* /home/test/missions/
