@@ -18,6 +18,8 @@ docker exec -it demo_uav_1 /root/PX4-Autopilot/build/px4_sitl_default/bin/px4-pa
 sleep 1
 docker exec -it demo_uav_1 /root/PX4-Autopilot/build/px4_sitl_default/bin/px4-param set MPC_XY_VEL_MAX 20
 sleep 1
+docker exec -it demo_uav_1 /root/PX4-Autopilot/build/px4_sitl_default/bin/px4-param set MIS_DIST_WPS 2000
+sleep 1
 docker exec demo_uav_1 bash -c "mavproxy.py --master udp:0.0.0.0:14540 --out udp:10.0.0.1:14540 --daemon 2>&1 >/var/log/mavproxy.log &"
 sleep 1
 docker exec -it demo_uav_1 python3 /usr/local/bin/gz_pose.py
