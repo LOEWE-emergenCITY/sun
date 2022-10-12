@@ -1,67 +1,67 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <scenario name="emergenCITY Demo Fair 2022">
   <networks>
-    <network id="3" name="AdHocWiFi" icon="" canvas="0" type="WIRELESS_LAN">
-      <position x="550.0" y="110.0" lat="47.578215019332305" lon="-122.13176726327383" alt="2.0"/>
+    <network id="3" name="AdHocWiFi" icon="" model="basic_range" type="WIRELESS_LAN">
+      <position x="550.0" y="110.0" lat="47.578499833068875" lon="-122.12738348468731" alt="2.0"/>
     </network>
-    <network id="4" name="uav0" canvas="0" type="RJ45">
-      <position x="550.0" y="595.0" lat="47.57614232348599" lon="-122.12782378939498" alt="2.0"/>
+    <network id="4" name="uav0" type="RJ45">
+      <position x="550.9657592773438" y="589.0404663085938" lat="47.575596839102985" lon="-122.12737480912413" alt="2.0"/>
     </network>
-    <network id="5" name="qgc0" icon="/root/.coregui/icons/pc.png" canvas="0" type="RJ45">
-      <position x="610.0" y="540.0" lat="47.57721512905405" lon="-122.12774281080098" alt="2.0"/>
+    <network id="5" name="qgc0" icon="/root/.coregui/icons/pc.png" type="RJ45">
+      <position x="610.0" y="540.0" lat="47.57589403261857" lon="-122.12684449551686" alt="2.0"/>
     </network>
   </networks>
   <devices>
-    <device id="2" name="p1" icon="" canvas="1" type="Mobile" class="" image="">
-      <position x="1020.592781760616" y="35.69983105423296" lat="47.57763326731151" lon="-122.13003351477549" alt="2.0"/>
+    <device id="2" name="p1" icon="" type="Mobile" class="" image="">
+      <position x="539.0" y="230.0" lat="47.577772645988624" lon="-122.12748229936857" alt="2.0"/>
       <services>
         <service name="dtnd"/>
         <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
       </services>
     </device>
-    <device id="6" name="p2" icon="" canvas="1" type="Mobile" class="" image="">
-      <position x="260.0" y="376.0" lat="47.57837863592353" lon="-122.12889265436465" alt="2.0"/>
+    <device id="6" name="p2" icon="" type="Mobile" class="" image="">
+      <position x="283.0" y="425.0" lat="47.57659094544251" lon="-122.12978198649591" alt="2.0"/>
       <services>
         <service name="dtnd"/>
         <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
       </services>
     </device>
-    <device id="7" name="p3" icon="" canvas="1" type="Mobile" class="" image="">
-      <position x="191.886338627215" y="356.943230424235" lat="47.57871798722352" lon="-122.1283177325828" alt="2.0"/>
+    <device id="7" name="p3" icon="" type="Mobile" class="" image="">
+      <position x="233.0" y="369.0" lat="47.57693030832907" lon="-122.130231144138" alt="2.0"/>
       <services>
         <service name="dtnd"/>
         <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
       </services>
     </device>
-    <device id="8" name="p4" icon="" canvas="1" type="Mobile" class="" image="">
-      <position x="965.735525189067" y="134.675602264267" lat="47.578748286339774" lon="-122.12713195640777" alt="2.0"/>
+    <device id="8" name="p4" icon="" type="Mobile" class="" image="">
+      <position x="855.0" y="336.0" lat="47.57713028900011" lon="-122.12464362307077" alt="2.0"/>
       <services>
         <service name="dtnd"/>
         <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
       </services>
     </device>
-    <device id="9" name="p5" icon="" canvas="1" type="Mobile" class="" image="">
-      <position x="1009.492426392903" y="216.555580506048" lat="47.57868768808973" lon="-122.1260270286083" alt="2.0"/>
+    <device id="9" name="p5" icon="" type="Mobile" class="" image="">
+      <position x="816.492431640625" y="404.55560302734375" lat="47.57671483979691" lon="-122.12498954244288" alt="2.0"/>
       <services>
         <service name="dtnd"/>
         <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
       </services>
     </device>
-    <device id="1" name="ACN" icon="" canvas="1" type="DTN" class="" image="">
-      <position x="500.985595703125" y="499.02880859375" lat="47.57614232367093" lon="-122.12782378857253" alt="2.0"/>
+    <device id="1" name="ACN" type="DTN" class="" image="">
+      <position x="550.9657592773438" y="589.0404663085938" lat="47.575596839102985" lon="-122.12737480912413" alt="2.0"/>
       <services>
         <service name="dtnd"/>
         <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
       </services>
     </device>
-    <device id="15" name="eHUB" icon="" canvas="1" type="SmartHome" class="" image="">
-      <position x="550.0" y="595.0" lat="47.57653640477345" lon="-122.13031199251355" alt="2.0"/>
+    <device id="15" name="eHUB" icon="" type="SmartHome" class="" image="">
+      <position x="550.0" y="595.0" lat="47.57556072320648" lon="-122.12738348468731" alt="2.0"/>
       <services>
         <service name="dtnd"/>
         <service name="dtnecho"/>
@@ -109,24 +109,7 @@
     </mobility_configuration>
   </mobility_configurations>
   <emane_global_configuration>
-    <emulator>
-      <configuration name="antennaprofilemanifesturi" value=""/>
-      <configuration name="controlportendpoint" value="0.0.0.0:47000"/>
-      <configuration name="eventservicedevice" value="ctrl0"/>
-      <configuration name="eventservicegroup" value="224.1.2.8:45703"/>
-      <configuration name="eventservicettl" value="1"/>
-      <configuration name="otamanagerchannelenable" value="1"/>
-      <configuration name="otamanagerdevice" value="ctrl0"/>
-      <configuration name="otamanagergroup" value="224.1.2.8:45702"/>
-      <configuration name="otamanagerloopback" value="0"/>
-      <configuration name="otamanagermtu" value="0"/>
-      <configuration name="otamanagerpartcheckthreshold" value="2"/>
-      <configuration name="otamanagerparttimeoutthreshold" value="5"/>
-      <configuration name="otamanagerttl" value="1"/>
-      <configuration name="stats.event.maxeventcountrows" value="0"/>
-      <configuration name="stats.ota.maxeventcountrows" value="0"/>
-      <configuration name="stats.ota.maxpacketcountrows" value="0"/>
-    </emulator>
+    <emulator/>
     <core>
       <configuration name="platform_id_start" value="1"/>
       <configuration name="nem_id_start" value="1"/>
@@ -182,4 +165,3 @@
     </node>
   </default_services>
 </scenario>
-
