@@ -44,7 +44,7 @@ async def run():
     await drone.mission.start_mission()
 
     print("waiting for survey to be finished...")
-    sleep(110)
+    sleep(160)
 
     # async for mission_progress in drone.mission_raw.mission_progress():
     #     subprocess.run(['REMOTE_CORE=http://demo_core_1:50051 position_dump -> /home/test/position_dump.txt'], shell=True)
