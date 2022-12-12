@@ -11,7 +11,7 @@ from appJar import gui
 
 
 async def run():
-    app=gui()
+    #app=gui()
 
     drone = System()#mavsdk_server_address="localhost", port=50051
     print("trying to connect...")
@@ -44,7 +44,7 @@ async def run():
     await drone.mission.start_mission()
 
     print("waiting for survey to be finished...")
-    sleep(160)
+    sleep(10)
 
     # async for mission_progress in drone.mission_raw.mission_progress():
     #     subprocess.run(['REMOTE_CORE=http://demo_core_1:50051 position_dump -> /home/test/position_dump.txt'], shell=True)
@@ -81,19 +81,17 @@ async def run():
     print(f"""survey finished, found {len(elements)-2} users""")
     #TODO add interface to trigger mission generation 
     #TODO add interface asking to download the mission in QGC
-    app.infoBox('Mission Start', 'Ready to start the mission?', parent=None)
+  #  app.infoBox('Mission Start', 'Ready to start the mission?', parent=None)
 
 
 
 # async def missionrun():
         
-    mission_import_data = await drone.mission_raw.import_qgroundcontrol_mission("/home/test/missions/demodays_mission.plan")
+    mission_import_data = await drone.mission_raw.import_qgroundcontrol_mission("/home/test/missions/test_mission.plan")
     print(f"{len(mission_import_data.mission_items)} mission items imported")
     await drone.mission_raw.upload_mission(mission_import_data.mission_items)
     
     print("Mission uploaded")
-
-
 
 
     print("-- Starting mission")
