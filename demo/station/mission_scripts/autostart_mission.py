@@ -7,11 +7,10 @@ import generate_mission
 import subprocess
 from mavsdk import System
 import mavsdk.mission_raw
-from appJar import gui
 
 
 async def run():
-    #app=gui()
+
 
     drone = System()#mavsdk_server_address="localhost", port=50051
     print("trying to connect...")

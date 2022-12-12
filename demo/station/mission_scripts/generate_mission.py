@@ -57,10 +57,10 @@ def get_mission():
   ## PX4 can only handle global (WGS84) coordinates. Therefore we have to transform them.##
   # calculate distances from home location to waypoints
   # last point in position_dump is home_local
+  home_local = np.array(waypoints_local[-1])
+  home_local[1] = home_local[1]*-1
 
-  home_local = waypoints_local[-1]
-
-  #calculate global coordinates of waypoints from distance to global home location 
+  
   # (only valid for small area)
   # new_latitude  = latitude  + (dy / r_earth) * (180 / pi);
   # new_longitude = longitude + (dx / r_earth) * (180 / pi) / cos(latitude * pi/180);
@@ -68,10 +68,12 @@ def get_mission():
   coef = np.array([1, 1/math.cos(home_global[0]*math.pi/180)])*((180/math.pi)/6378000) 
   #coef=((1 / r_earth) * (180 / pi), (1 / r_earth) * (180 / pi) / cos(latitude * pi/180))
 
+  #core cs is upside down therefore y=>-y
+  waypoints_local=np.array(waypoints_local)
+  waypoints_local[:,1]=waypoints_local[:,1]*-1
+  #calculate global coordinates of waypoints from distance to global home location 
+  waypoints_local=waypoints_local-home_local 
   #x=longitude, y=latitude therefore flip array
-  waypoints_local=(np.array(waypoints_local)*-1)-(home_local*-1)
-
-
   waypoints_global= np.array([home_global[0], home_global[1]])+np.fliplr(waypoints_local[:,:2])*coef
   #(new lat, new lon)=(lat, lon)+(dy,dx)*coef
   #print(waypoints_global)
