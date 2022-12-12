@@ -1,0 +1,67 @@
+version: "3.9"
+services:
+    station:
+        build: "./station"
+        container_name: sun_station_1
+        privileged: true
+        cap_add:
+            - NET_ADMIN
+        ports:
+            - "15901:5901"
+        volumes:
+            - SHAREDDIR:/shared
+        networks:
+            - "ground"
+            - "default"
+        entrypoint: bash -c "/net.sh && /entrypoint.sh"
+        #entrypoint: bash -c "/net-routed.sh && /entrypoint.sh"
+    uav:
+        build: "./uav"
+        container_name: sun_uav_1
+        privileged: true
+        cap_add:
+            - NET_ADMIN
+        environment:
+            HEADLESS: 1
+            REMOTE_CORE: "http://sun_core_1:50051"
+            PX4_HOME_LAT: 49.860541
+            PX4_HOME_LON: 8.676634
+            PX4_HOME_ALT: 181
+        expose:
+            - "18570/udp"
+        tty: true
+        volumes:
+            - SHAREDDIR:/shared
+        networks:
+            - "air"
+            - "default"
+        #entrypoint: bash -c "/net.sh && make px4_sitl gazebo___baylands"
+        entrypoint: bash -c "/net.sh && make px4_sitl gazebo"
+        #entrypoint: bash -c "/net-routed.sh && make px4_sitl gazebo"
+        #entrypoint: bash -c "/net.sh && tail -f /dev/null"
+    core:
+        build: "./core"
+        container_name: sun_core_1
+        ports:
+            - "2022:22"
+            - "15902:5901"
+        environment:
+            SSHKEY: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEA3XsR45C78ldbMxKHZJlNh6eTltjde89rgzSf14X7mSBZ38s+6Qb2UZNb+X/slCr2TslGuJwQdHgxngxQ4BX/fF6u3YGnf23yxr2XQUtOzKAI7G8yn8XobBxB+8mqba04GXlKVjy9EQNrP1FgfW3koOqXBk9Umj1EbFduG1ttHCc= gh0st@pluto"
+        tty: true
+        privileged: true
+        networks:
+            - "air"
+            - "ground"
+            - "default"
+        volumes:
+            - SHAREDDIR:/shared
+        entrypoint: bash -c "/net.sh && /root/entryPoint.sh"
+        #entrypoint: bash -c "service ssh start && tail -f /dev/null"
+
+networks:
+    default:
+        driver: bridge
+    air:
+        driver: bridge
+    ground:
+        driver: bridge

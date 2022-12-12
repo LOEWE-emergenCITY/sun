@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <name of new scenario>"
+    exit 1
+fi
+
+if [ -d "scenarios/$1" ]; then
+    echo "Scenario $1 already exists"
+    exit 1
+fi
+
+mkdir -p scenarios/$1
+
+cp -r templates/shared-TEMPLATE/* scenarios/$1
+cat templates/shared-TEMPLATE/experiment.conf | sed -e "s/SCENARIONAME/$1/g" >scenarios/$1/experiment.conf
