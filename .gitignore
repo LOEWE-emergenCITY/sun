@@ -1,2 +1,4 @@
-demo/shared/results*/
-demo/shared/*.log
+**/results*/
+**/*.log
+__pycache__/
+/docker-compose.yml
