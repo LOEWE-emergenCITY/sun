@@ -42,13 +42,13 @@
 ## Building demo setup
 
 ```
-$ ./build.sh
+$ ./sun build
 ```
 
 ## Creating a new scenario
 
 ```
-$ ./scenario_new myscenario
+$ ./sun new myscenario
 ```
 
 This will generate a new scenario under `scenarios/` with an empty `autostart.sh`, some `px4-params.txt` and an `experiment.conf` plus a few example core network topologies (default one active: `uav_direct_rj45.xml`)-
@@ -56,7 +56,7 @@ This will generate a new scenario under `scenarios/` with an empty `autostart.sh
 ## Running a scenario setup
 
 ```
-$ ./run.sh scenarios/demofair22.xml
+$ ./sun run scenarios/demofair22.xml
 ```
 
 afterwards, connect with vnc viewer of choice to:
@@ -77,11 +77,23 @@ You can access the 3 different machines also via `docker`:
 - uav: `docker exec -it sun_uav_1 bash`
 - core: `docker exec -it sun_core_1 bash`
 
-For your convenience, we provide `nsh` which opens a bash on either of the three docker instances or directly on any virtual node name running within *core*.
+For your convenience, you can use `./sun nsh <node name>` which opens a bash on either of the three docker instances or directly on any virtual node name running within *core*.
 
 ```
-$ ./nsh
-Usage: ./nsh <uav|core|station|<coreemu virtual node name>>
+$ ./sun
+SUN - Simulated UAV Network
+
+Usage: sun [command] [command options]
+Commands:
+  run <scenario_dir>    start simulation scenarion
+  new <scenario_name>   create new scenario
+  build                 build all docker images
+  clear                 remove scenario results and temporary files
+  nsh <node_name>       open shell for given node
+  version               print version information
+  help                  print this help
+
+Nodes: uav|core|station|<coreemu virtual node name>
 ```
 
 ## Different network setups
