@@ -1,0 +1,3 @@
+#!/bin/sh
+
+docker exec sun_core_1 dump_xy.sh
