@@ -56,7 +56,7 @@ This will generate a new scenario under `scenarios/` with an empty `autostart.sh
 ## Running a scenario setup
 
 ```
-$ ./sun run scenarios/demofair22.xml
+$ ./sun run scenarios/demodays2022
 ```
 
 afterwards, connect with vnc viewer of choice to:
