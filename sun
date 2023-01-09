@@ -4,6 +4,13 @@ VERSION=$(git describe --abbrev=7 --always --long --match v* master)
 
 set -e
 
+COMPOSE="docker-compose"
+if ! command -v docker-compose %> /dev/null
+then
+    echo "docker-compose not found, using 'docker compose'"
+    COMPOSE="docker compose"
+fi
+
 echo "SUN - Simulated UAV Network"
 echo
 
@@ -40,7 +47,7 @@ build() {
         echo "no config found, generating one..."
         cat templates/docker-compose.yml.TEMPLATE | sed -e 's/SHAREDDIR/.\/shared/g' >docker-compose.yml
     fi
-    docker-compose build
+    $COMPOSE build
 }
 
 clear() {
@@ -68,8 +75,8 @@ run() {
     echo "running scenario: $1"
     cat templates/docker-compose.yml.TEMPLATE | sed -e "s+SHAREDDIR+./$1+g" >docker-compose.yml
 
-    docker-compose build
-    docker-compose up -d --remove-orphans
+    $COMPOSE build
+    $COMPOSE up -d --remove-orphans
     sleep 5
     # connect core gui: password netsim
     #ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -Y -p 2022 root@localhost core-pygui -s 1 &
@@ -105,10 +112,10 @@ run() {
     # mutli node mesh setup: babeld -D -C 'redistribute metric 256' eth0
     #tail -f /dev/null
     set -e
-    docker-compose stop
-    docker-compose rm -f core
-    docker-compose rm -f uav
-    docker-compose rm -f station
+    $COMPOSE stop
+    $COMPOSE rm -f core
+    $COMPOSE rm -f uav
+    $COMPOSE rm -f station
 }
 
 # if no parameters given then print usage
