@@ -4,16 +4,18 @@ RUN cargo install --bins --examples --root /usr/local --version 0.17.3 dtn7
 RUN cargo install --bins --examples --root /usr/local --version 0.6.1 dtn7-plus
 RUN rustup component add rustfmt && cargo install --bins --examples --root /usr/local --version 0.1.3 coreemu
 
-FROM px4io/px4-dev-simulation-focal:latest
+FROM px4io/px4-dev-simulation-focal:2022-08-12
 LABEL Description="Docker image for network evaluations using px4 and gazebo"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /root
-RUN git clone --recurse-submodules -j8 https://github.com/PX4/PX4-Autopilot 
+#RUN mkdir -p /root/PX4-Autopilot
+RUN git clone -j8 https://github.com/PX4/PX4-Autopilot
 WORKDIR /root/PX4-Autopilot
+RUN git checkout v1.12.3 && git submodule update --recursive
 #RUN DONT_RUN=1 make px4_sitl gazebo___baylands
-RUN DONT_RUN=1 make px4_sitl gazebo
+RUN DONT_RUN=1 no_sim=1 make px4_sitl gazebo
 
 COPY --from=builder /usr/local/bin/* /usr/local/bin/
 #COPY baylands /root/.gazebo/models/baylands
@@ -34,6 +36,5 @@ COPY gz_pose.py /usr/local/bin
 
 WORKDIR /root/PX4-Autopilot
 
-COPY net.sh /net.sh 
+COPY net.sh /net.sh
 COPY net-routed.sh /net-routed.sh
-
