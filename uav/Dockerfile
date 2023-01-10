@@ -13,7 +13,7 @@ WORKDIR /root
 #RUN mkdir -p /root/PX4-Autopilot
 RUN git clone -j8 https://github.com/PX4/PX4-Autopilot
 WORKDIR /root/PX4-Autopilot
-RUN git checkout v1.12.3 && git submodule update --recursive
+RUN git checkout v1.13.2 && git submodule update --recursive
 #RUN DONT_RUN=1 make px4_sitl gazebo___baylands
 RUN DONT_RUN=1 no_sim=1 make px4_sitl gazebo
 
