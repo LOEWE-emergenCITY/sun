@@ -94,8 +94,10 @@ run() {
     echo "core network: vnc://127.0.0.1:15902"
     echo "core network: ssh://root@127.0.0.1:2022"
     sleep 2
+    #docker exec -it sun_core_1 core-cli query session -i 1
     BASE_X=$(docker exec -it sun_core_1 core-pos uav0 | egrep -ex | awk '{print $2}' | sed 's/,*\r*$//')
     BASE_Y=$(docker exec -it sun_core_1 core-pos uav0 | egrep -ey | awk '{print $2}' | sed 's/,*\r*$//')
+    echo "base xy: $BASE_X,$BASE_Y"
     docker exec -it sun_core_1 core-cli node edit -i 4 -p $BASE_X,$BASE_Y -ic /root/.coregui/icons/uav.png
     sleep 1
 
