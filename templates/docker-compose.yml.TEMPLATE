@@ -24,9 +24,9 @@ services:
         environment:
             HEADLESS: 1
             REMOTE_CORE: "http://sun_core_1:50051"
-            PX4_HOME_LAT: 49.860541
-            PX4_HOME_LON: 8.676634
-            PX4_HOME_ALT: 181
+            PX4_HOME_LAT: "${PX4_HOME_LAT}"
+            PX4_HOME_LON: "${PX4_HOME_LON}"
+            PX4_HOME_ALT: "${PX4_HOME_ALT}"
         expose:
             - "18570/udp"
         tty: true

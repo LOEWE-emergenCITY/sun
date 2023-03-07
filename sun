@@ -74,8 +74,18 @@ nsh() {
 run() {
     echo "running scenario: $1"
     cat templates/docker-compose.yml.TEMPLATE | sed -e "s+SHAREDDIR+./$1+g" >docker-compose.yml
-
+    
     $COMPOSE build
+
+    if [ -f "$1/env.conf" ]; then
+        echo "Loading environment variables from $1/env.conf"
+        set -o allexport
+        . $1/env.conf
+        set +o allexport
+
+        echo $PX4_HOME_LAT,$PX4_HOME_LON,$PX4_HOME_ALT
+    fi
+
     $COMPOSE up -d --remove-orphans
     sleep 5
     # connect core gui: password netsim
