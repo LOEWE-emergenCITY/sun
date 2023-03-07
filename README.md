@@ -39,6 +39,8 @@
 
 **IMPORTANT** You might need *ebtables* and *sch_netem* kernel modules loaded!
 
+**IMPORTANT TOO** As `sun` uses relative paths, it must be called from the root of this repository!
+
 ## Building demo setup
 
 ```
@@ -51,7 +53,7 @@ $ ./sun build
 $ ./sun new myscenario
 ```
 
-This will generate a new scenario under `scenarios/` with an empty `autostart.sh`, some `px4-params.txt` and an `experiment.conf` plus a few example core network topologies (default one active: `uav_direct_rj45.xml`)-
+This will generate a new scenario under `scenarios/` with an empty `autostart.sh`, some `px4-params.txt`, an `env.conf` and an `experiment.conf` plus a few example core network topologies (default one active: `uav_direct_rj45.xml`).
 
 ## Running a scenario setup
 
