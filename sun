@@ -34,7 +34,7 @@ scenario_new() {
         exit 1
     fi
 
-    echo "generating new scenario: $2"
+    echo "generating new scenario: $1"
     mkdir -p scenarios/$1
 
     cp -r templates/shared-TEMPLATE/* scenarios/$1
