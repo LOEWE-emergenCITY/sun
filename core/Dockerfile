@@ -39,10 +39,11 @@ RUN apt-get update && \
 COPY xstartup /root/.vnc/
 COPY coreemu.sh /root/Desktop
 
-RUN mkdir -p /root/.core/myservices && mkdir -p /root/.coregui/custom_services && mkdir -p /root/.coregui/icons
+RUN mkdir -p /root/.core/myservices && mkdir -p /root/.coregui/custom_services && mkdir -p /root/.coregui/icons && mkdir -p /root/.coregui/backgrounds
 COPY core_services/* /root/.core/myservices/
 COPY coregui/config.yaml /root/.coregui/
 COPY coregui/icons/* /root/.coregui/icons/
+COPY coregui/backgrounds/* /root/.coregui/backgrounds/
 COPY scripts/* /usr/local/bin/
 
 COPY update-custom-services.sh /update-custom-services.sh

@@ -16,4 +16,5 @@ fi
 
 /update-custom-services.sh
 
-/usr/bin/tightvncserver -geometry 1280x800 -depth 24 &
+#/usr/bin/tightvncserver -geometry 1280x800 -depth 24 &
+/usr/bin/tightvncserver -geometry 1920x1080 -depth 24 &
