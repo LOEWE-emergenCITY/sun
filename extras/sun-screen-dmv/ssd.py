@@ -43,19 +43,25 @@ def print_dtn_stats():
     )
 
 
-GPS_W = [49.87013, 49.8842]
-GPS_H = [8.630035, 8.668971]
-SCREEN_W = 2800
-SCREEN_H = 1550
+GPS_H = [49.87013, 49.8842]
+GPS_W = [8.630035, 8.668971]
+#SCREEN_W = 2800
+#SCREEN_H = 1550
+SCREEN_W = 2560
+SCREEN_H = 1417
 
 
-def map_screen_to_gps(x, y):
-    gps_x = GPS_W[0] + (x / SCREEN_W) * (GPS_W[1] - GPS_W[0])
-    gps_y = GPS_H[0] + (y / SCREEN_H) * (GPS_H[1] - GPS_H[0])
-    if gps_x < GPS_W[0] or gps_x > GPS_W[1] or gps_y < GPS_H[0] or gps_y > GPS_H[1]:
+def map_screen_to_gps(x, y, invertX = False, invertY = True):
+    if invertX:
+        x = SCREEN_W-x
+    if invertY:
+        y = SCREEN_H-y
+    gps_lat = GPS_H[0] + (y / SCREEN_H) * (GPS_H[1] - GPS_H[0])
+    gps_lon = GPS_W[0] + (x / SCREEN_W) * (GPS_W[1] - GPS_W[0])
+    if gps_lat < GPS_H[0] or gps_lat > GPS_H[1] or gps_lon < GPS_W[0] or gps_lon > GPS_W[1]:
         return "out of bounds! ", x, y
 
-    return "%.05f,%.05f" % (gps_x, gps_y)
+    return "%.05f,%.05f" % (gps_lat, gps_lon)
 
 
 def update_stats():
@@ -105,18 +111,21 @@ def on_feed_timer():
         for line in output:
             # print(line)
             node, x, y = line.strip().split()
+            gps = map_screen_to_gps(int(x), int(y)).split(",")
             point = {}
             point["id"] = node
-            point["x"] = x
-            point["y"] = y
+            point["lat"] = gps[0]
+            point["lon"] = gps[1]
             points["points"].append(point)
+        print("feeding", json.dumps(points))
         resp = urllib3.PoolManager().urlopen(
             "POST",
             "http://10.193.0.86:14100/citymovie/json",
             body=json.dumps(points),
             headers={"Content-Type": "application/json"},
             timeout=urllib3.Timeout(connect=1.0, read=2.0),
-        )
+        )        
+        print(resp.read())
 
     if feed_nexus.value:
         pass
