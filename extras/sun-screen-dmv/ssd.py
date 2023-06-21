@@ -117,7 +117,7 @@ def on_feed_timer():
             point["lat"] = gps[0]
             point["lon"] = gps[1]
             points["points"].append(point)
-        print("feeding", json.dumps(points))
+        #print("feeding", json.dumps(points))
         resp = urllib3.PoolManager().urlopen(
             "POST",
             "http://10.193.0.86:14100/citymovie/json",
