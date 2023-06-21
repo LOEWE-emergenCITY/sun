@@ -18,6 +18,7 @@ help() {
     echo "Usage: sun [command] [command options]"
     echo "Commands:"
     echo "  run <scenario_dir>    start simulation scenarion"
+    echo "  stop                  stop (stale) simulation"
     echo "  new <scenario_name>   create new scenario"
     echo "  build                 build all docker images"
     echo "  clear                 remove scenario results and temporary files"
@@ -39,6 +40,10 @@ scenario_new() {
 
     cp -r templates/shared-TEMPLATE/* scenarios/$1
     cat templates/shared-TEMPLATE/experiment.conf | sed -e "s/SCENARIONAME/$1/g" >scenarios/$1/experiment.conf
+}
+stop() {
+    echo "stopping simulation"
+    $COMPOSE down
 }
 build() {
     echo "building images"
@@ -148,6 +153,8 @@ elif [ "$1" = "run" ]; then
         exit 0
     fi
     run $2
+elif [ "$1" = "stop" ]; then
+    stop
 elif [ "$1" = "build" ]; then
     build
 elif [ "$1" = "clear" ]; then
