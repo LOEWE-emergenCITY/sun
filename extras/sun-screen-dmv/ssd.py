@@ -160,7 +160,9 @@ with ui.tab_panels(tabs, value=one).classes("w-full"):
                 feed_beamer = ui.checkbox(
                     "Feed City Model Beamer", on_change=on_feed_city_changed
                 )
-                ui.input("beamer remote", value="http://localhost:14100/citymovie/json")
+                ui.input(
+                    "beamer remote", value="http://10.193.0.86:14100/citymovie/json"
+                )
             with ui.row():
                 feed_nexus = ui.checkbox(
                     "Feed NEXUS Demonstrator", on_change=on_feed_nexus_changed
