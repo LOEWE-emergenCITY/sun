@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<scenario name="/tmp/tmpd3yrjzju">
+<scenario name="/tmp/tmp0y74z3gw">
   <networks>
     <network id="3" name="AdHocWiFi" icon="" canvas="0" type="WIRELESS_LAN">
       <position x="53.1245231628418" y="56.65447235107422" lat="47.57896042399966" lon="-122.13203788332326" alt="2.0"/>
     </network>
     <network id="4" name="uav0" icon="/root/.coregui/icons/uav.png" canvas="0" type="RJ45">
-      <position x="344.0198974609375" y="1164.0398559570312" lat="47.5757229911374" lon="-122.13118145446343" alt="2.0"/>
+      <position x="345.0300598144531" y="1163.0592041015625" lat="47.57493751665022" lon="-122.13046454409272" alt="2.0"/>
     </network>
     <network id="5" name="qgc0" icon="/root/.coregui/icons/pc.png" canvas="0" type="RJ45">
-      <position x="344.497802734375" y="1260.404052734375" lat="47.574768999208935" lon="-122.13046741290073" alt="2.0"/>
+      <position x="344.497802734375" y="1260.404052734375" lat="47.574583554249976" lon="-122.13046741290073" alt="2.0"/>
     </network>
   </networks>
   <devices>
     <device id="1" name="ACN" icon="" canvas="0" type="DTN" class="" image="">
-      <position x="344.0198974609375" y="1164.0398559570312" lat="47.5757229911374" lon="-122.13118145446343" alt="2.0"/>
+      <position x="345.0300598144531" y="1163.0592041015625" lat="47.57493751665022" lon="-122.13046454409272" alt="2.0"/>
       <services>
         <service name="DefaultMulticastRoute"/>
         <service name="dtnecho"/>
@@ -21,7 +21,7 @@
       </services>
     </device>
     <device id="15" name="HQ" icon="" canvas="0" type="SmartHome" class="" image="">
-      <position x="344.1258850097656" y="1244.423095703125" lat="47.57485983411738" lon="-122.130469417497" alt="2.0"/>
+      <position x="344.1258850097656" y="1244.423095703125" lat="47.5746416638877" lon="-122.130469417497" alt="2.0"/>
       <services>
         <service name="DefaultMulticastRoute"/>
         <service name="dtnecho"/>
@@ -68,13 +68,13 @@
         <service name="dtnd"/>
       </services>
     </device>
-    <device id="10" name="water1" icon="" canvas="1" type="DTN7ZERO" class="" image="">
+    <device id="10" name="water1" icon="" canvas="0" type="DTN7ZERO" class="" image="">
       <position x="1177.46533203125" y="268.8480529785156" lat="47.578188908308356" lon="-122.12597780812428" alt="2.0"/>
       <services>
         <service name="dtn7zero"/>
       </services>
     </device>
-    <device id="11" name="power1" icon="" canvas="1" type="DTN7ZERO" class="" image="">
+    <device id="11" name="power1" icon="" canvas="0" type="DTN7ZERO" class="" image="">
       <position x="743.080322265625" y="1058.36181640625" lat="47.57531821146053" lon="-122.12831909628507" alt="2.0"/>
       <services>
         <service name="dtn7zero"/>
@@ -137,6 +137,101 @@
       <configuration name="link_timeout" value="4"/>
     </core>
   </emane_global_configuration>
+  <service_configurations>
+    <service name="dtn7zero" node="10">
+      <startups>
+        <startup>bash -c 'PYTHONUNBUFFERED=TRUE python3 ./start-dtn7zero.py &amp;&gt; dtn7zero.log'</startup>
+      </startups>
+      <files>
+        <file name="start-dtn7zero.py"><![CDATA[#!/usr/bin/python3
+
+# This script is a blueprint on how to configure and start dtn7zero
+
+import socket
+import sys
+import time
+import random
+from copy import deepcopy
+import json
+import random
+
+from dtn7zero import setup, register, register_group, start_background_update_thread, run_forever
+from py_dtn7.bundle import PrimaryBlock
+
+sys.path.append("/shared/nexus_sensors/")
+import watersim
+
+node_id = f"dtn://{socket.gethostname()}/"
+node_endpoint = setup(node_id)
+
+with open("/shared/nexus_sensors/watersim.json") as f:
+    config = json.load(f)
+
+node = socket.gethostname()
+
+### Option: send messages
+### Note: dtn7zero can update the framework with a background-thread, which leaves the main-thread for user defined code
+###       -> recommended, as user defined code will not interfere with the framework update times (background-thread keeps running, as long as main-thread is running)
+start_background_update_thread()
+
+try:
+    while True:        
+        nval = watersim.nextValue(config, node)
+        print("Sending values",nval)
+        node_endpoint.send(json.dumps(nval).encode(), "dtn://nexus/~watersim")
+        time.sleep(watersim.SEND_INTERVAL)
+except KeyboardInterrupt:
+    pass
+
+]]></file>
+      </files>
+    </service>
+    <service name="dtn7zero" node="11">
+      <startups>
+        <startup>bash -c 'PYTHONUNBUFFERED=TRUE python3 ./start-dtn7zero.py &amp;&gt; dtn7zero.log'</startup>
+      </startups>
+      <files>
+        <file name="start-dtn7zero.py"><![CDATA[#!/usr/bin/python3
+
+# This script is a blueprint on how to configure and start dtn7zero
+
+import socket
+import sys
+import time
+import random
+import json
+
+from dtn7zero import setup, register, register_group, start_background_update_thread, run_forever
+from py_dtn7.bundle import PrimaryBlock
+
+sys.path.append("/shared/nexus_sensors/")
+import powersim
+
+node_id = f"dtn://{socket.gethostname()}/"
+node_endpoint = setup(node_id)
+
+with open("/shared/nexus_sensors/powersim.json") as f:
+    config = json.load(f)
+
+node = socket.gethostname()
+
+### Option: send messages
+### Note: dtn7zero can update the framework with a background-thread, which leaves the main-thread for user defined code
+###       -> recommended, as user defined code will not interfere with the framework update times (background-thread keeps running, as long as main-thread is running)
+start_background_update_thread()
+
+try:
+    while True:        
+        nval = powersim.nextValue(config, node)
+        print("Sending values",nval)
+        node_endpoint.send(json.dumps(nval).encode(), "dtn://nexus/~powersim")
+        time.sleep(powersim.SEND_INTERVAL)
+except KeyboardInterrupt:
+    pass
+]]></file>
+      </files>
+    </service>
+  </service_configurations>
   <session_origin lat="47.579166412353516" lon="-122.13232421875" alt="2.0" scale="60.0"/>
   <session_options>
     <configuration name="controlnet" value="ctrl0"/>
@@ -152,10 +247,10 @@
     <configuration name="ovs" value="0"/>
   </session_options>
   <session_metadata>
-    <configuration name="shapes" value="[{&quot;canvas&quot;: 1, &quot;type&quot;: &quot;text&quot;, &quot;iconcoords&quot;: [1322.2603261697911, 49.36930345983847], &quot;label&quot;: &quot;SUN Network View&quot;, &quot;fontfamily&quot;: &quot;Droid Sans Fallback&quot;, &quot;fontsize&quot;: 20, &quot;labelcolor&quot;: &quot;#000000&quot;, &quot;color&quot;: &quot;&quot;, &quot;border&quot;: &quot;#000000&quot;, &quot;width&quot;: 1, &quot;bold&quot;: true, &quot;italic&quot;: false, &quot;underline&quot;: false}]"/>
-    <configuration name="hidden" value="[]"/>
     <configuration name="canvas" value="{&quot;gridlines&quot;: false, &quot;dimensions&quot;: [2000, 2000], &quot;canvases&quot;: [{&quot;id&quot;: 1, &quot;wallpaper&quot;: &quot;darmstadt-model.jpg&quot;, &quot;wallpaper_style&quot;: 1, &quot;fit_image&quot;: false}]}"/>
     <configuration name="edges" value="[]"/>
+    <configuration name="shapes" value="[{&quot;canvas&quot;: 1, &quot;type&quot;: &quot;text&quot;, &quot;iconcoords&quot;: [1322.2603261697911, 49.36930345983847], &quot;label&quot;: &quot;SUN Network View&quot;, &quot;fontfamily&quot;: &quot;Droid Sans Fallback&quot;, &quot;fontsize&quot;: 20, &quot;labelcolor&quot;: &quot;#000000&quot;, &quot;color&quot;: &quot;&quot;, &quot;border&quot;: &quot;#000000&quot;, &quot;width&quot;: 1, &quot;bold&quot;: true, &quot;italic&quot;: false, &quot;underline&quot;: false}]"/>
+    <configuration name="hidden" value="[]"/>
   </session_metadata>
   <default_services>
     <node type="mdr">

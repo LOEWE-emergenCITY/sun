@@ -1,0 +1,10 @@
+{
+    "timestamp": "396000",
+    "correlation_id": "wntr - 110",
+    "payload": {
+        "pressure": 5.723273373165227,
+        "supply": 0.36060549838127504,
+        "id": "urn:ngsi:Tank:Oberfeld_T",
+        "type": "Tank"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "timestamp": "0",
+    "correlation_id": "pandapower - 0",
+    "payload": {
+        "p_hv_mw": 8.611606136433338,
+        "q_hv_mvar": 3.844819237610436,
+        "p_lv_mw": -8.563918686715054,
+        "q_lv_mvar": -3.69795060530147,
+        "ql_mvar": 0.146868632308966,
+        "i_hv_ka": 0.048528953503878,
+        "i_lv_ka": 0.265436038749534,
+        "va_lv_degree": -0.673898112511839,
+        "loading_percent": 7.338101144250084,
+        "id": "urn:ngsi:Trafo:4",
+        "type": "Trafo"
+    }
+}
