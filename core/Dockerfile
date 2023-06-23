@@ -1,15 +1,15 @@
 FROM rust:1.61 as builder
 WORKDIR /root
 RUN rustup component add rustfmt
-RUN cargo install --bins --examples --root /usr/local --git https://github.com/dtn7/dtn7-rs --rev 7519b01 dtn7
-RUN cargo install --bins --examples --root /usr/local --git https://github.com/dtn7/dtn7-rs --rev 7519b01 examples
-RUN cargo install --bins --examples --root /usr/local --version 0.6.1 dtn7-plus
+#RUN cargo install --bins --examples --root /usr/local --git https://github.com/dtn7/dtn7-rs --rev 7519b01 dtn7
+#RUN cargo install --bins --examples --root /usr/local --git https://github.com/dtn7/dtn7-rs --rev 7519b01 examples
+#RUN cargo install --bins --examples --root /usr/local --version 0.6.1 dtn7-plus
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     apt-get install -y cmake \    
     && rm -rf /var/lib/apt/lists/*
 RUN cargo install --bins --examples --root /usr/local --version 0.1.5 coreemu
 
-FROM gh0st42/coreemu-lab:1.0.0
+FROM gh0st42/dtn7-showroom:v0.2.0
 
 # install stuff for vnc session
 
@@ -24,7 +24,7 @@ COPY --from=builder /usr/local/bin/* /usr/local/bin/
 RUN touch /root/.Xresources
 RUN touch /root/.Xauthority
 WORKDIR /root
-RUN mkdir .vnc Desktop
+RUN mkdir -p .vnc Desktop
 
 # mavproxy
 RUN pip install mavproxy

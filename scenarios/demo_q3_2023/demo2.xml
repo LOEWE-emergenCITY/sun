@@ -1,71 +1,83 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<scenario name="/tmp/tmpzkmtvr39">
+<scenario name="/tmp/tmpd3yrjzju">
   <networks>
-    <network id="3" name="AdHocWiFi" icon="" model="basic_range" type="WIRELESS_LAN">
-      <position x="550.0" y="110.0" lat="47.578499833068875" lon="-122.12738348468731" alt="2.0"/>
+    <network id="3" name="AdHocWiFi" icon="" canvas="0" type="WIRELESS_LAN">
+      <position x="53.1245231628418" y="56.65447235107422" lat="47.57896042399966" lon="-122.13203788332326" alt="2.0"/>
     </network>
-    <network id="4" name="uav0" type="RJ45">
-      <position x="211.0099334716797" y="948.0199584960938" lat="47.57342131133354" lon="-122.13042868426659" alt="2.0"/>
+    <network id="4" name="uav0" icon="/root/.coregui/icons/uav.png" canvas="0" type="RJ45">
+      <position x="344.0198974609375" y="1164.0398559570312" lat="47.5757229911374" lon="-122.13118145446343" alt="2.0"/>
     </network>
-    <network id="5" name="qgc0" icon="/root/.coregui/icons/pc.png" type="RJ45">
-      <position x="250.0" y="900.0" lat="47.57371233250685" lon="-122.1300784305397" alt="2.0"/>
+    <network id="5" name="qgc0" icon="/root/.coregui/icons/pc.png" canvas="0" type="RJ45">
+      <position x="344.497802734375" y="1260.404052734375" lat="47.574768999208935" lon="-122.13046741290073" alt="2.0"/>
     </network>
   </networks>
   <devices>
-    <device id="2" name="p1" icon="" type="Mobile" class="" image="">
-      <position x="200.0" y="514.0" lat="47.57605159632938" lon="-122.13052758818174" alt="2.0"/>
+    <device id="1" name="ACN" icon="" canvas="0" type="DTN" class="" image="">
+      <position x="344.0198974609375" y="1164.0398559570312" lat="47.5757229911374" lon="-122.13118145446343" alt="2.0"/>
       <services>
-        <service name="dtnd"/>
-        <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
+        <service name="dtnecho"/>
+        <service name="dtnd"/>
       </services>
     </device>
-    <device id="6" name="p2" icon="" type="Mobile" class="" image="">
-      <position x="2007.0" y="200.0" lat="47.57795444370553" lon="-122.11429503099771" alt="2.0"/>
+    <device id="15" name="HQ" icon="" canvas="0" type="SmartHome" class="" image="">
+      <position x="344.1258850097656" y="1244.423095703125" lat="47.57485983411738" lon="-122.130469417497" alt="2.0"/>
       <services>
-        <service name="dtnd"/>
-        <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
+        <service name="dtnecho"/>
+        <service name="dtnd"/>
       </services>
     </device>
-    <device id="7" name="p3" icon="" type="Mobile" class="" image="">
-      <position x="2076.0" y="863.0" lat="47.57393656698716" lon="-122.11367519345166" alt="2.0"/>
+    <device id="2" name="p1" icon="" canvas="0" type="Mobile" class="" image="">
+      <position x="1426.9471435546875" y="546.00732421875" lat="47.5771811664181" lon="-122.12463312817786" alt="2.0"/>
       <services>
-        <service name="dtnd"/>
-        <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
+        <service name="dtnecho"/>
+        <service name="dtnd"/>
       </services>
     </device>
-    <device id="8" name="p4" icon="" type="Mobile" class="" image="">
-      <position x="855.0" y="336.0" lat="47.57713028900011" lon="-122.12464362307077" alt="2.0"/>
+    <device id="6" name="p2" icon="" canvas="0" type="Mobile" class="" image="">
+      <position x="2007.0" y="200.0" lat="47.57843923453127" lon="-122.12150670609863" alt="2.0"/>
       <services>
-        <service name="dtnd"/>
-        <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
+        <service name="dtnecho"/>
+        <service name="dtnd"/>
       </services>
     </device>
-    <device id="9" name="p5" icon="" type="Mobile" class="" image="">
-      <position x="816.492431640625" y="404.55560302734375" lat="47.57671483979691" lon="-122.12498954244288" alt="2.0"/>
+    <device id="7" name="p3" icon="" canvas="0" type="Mobile" class="" image="">
+      <position x="2076.0" y="863.0" lat="47.576028567816614" lon="-122.121134803571" alt="2.0"/>
       <services>
-        <service name="dtnd"/>
-        <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
+        <service name="dtnecho"/>
+        <service name="dtnd"/>
       </services>
     </device>
-    <device id="1" name="ACN" type="DTN" class="" image="">
-      <position x="211.0099334716797" y="948.0199584960938" lat="47.57342131133354" lon="-122.13042868426659" alt="2.0"/>
+    <device id="8" name="p4" icon="" canvas="0" type="Mobile" class="" image="">
+      <position x="855.0" y="336.0" lat="47.577944747843226" lon="-122.12771586134247" alt="2.0"/>
       <services>
-        <service name="dtnd"/>
-        <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
+        <service name="dtnecho"/>
+        <service name="dtnd"/>
       </services>
     </device>
-    <device id="15" name="HQ" icon="" type="SmartHome" class="" image="">
-      <position x="210.0" y="949.0" lat="47.57341537185242" lon="-122.13043775665334" alt="2.0"/>
+    <device id="9" name="p5" icon="" canvas="0" type="Mobile" class="" image="">
+      <position x="816.492431640625" y="404.55560302734375" lat="47.577695482594244" lon="-122.1279234129657" alt="2.0"/>
       <services>
-        <service name="dtnd"/>
-        <service name="dtnecho"/>
         <service name="DefaultMulticastRoute"/>
+        <service name="dtnecho"/>
+        <service name="dtnd"/>
+      </services>
+    </device>
+    <device id="10" name="water1" icon="" canvas="1" type="DTN7ZERO" class="" image="">
+      <position x="1177.46533203125" y="268.8480529785156" lat="47.578188908308356" lon="-122.12597780812428" alt="2.0"/>
+      <services>
+        <service name="dtn7zero"/>
+      </services>
+    </device>
+    <device id="11" name="power1" icon="" canvas="1" type="DTN7ZERO" class="" image="">
+      <position x="743.080322265625" y="1058.36181640625" lat="47.57531821146053" lon="-122.12831909628507" alt="2.0"/>
+      <services>
+        <service name="dtn7zero"/>
       </services>
     </device>
   </devices>
@@ -96,6 +108,12 @@
     </link>
     <link node1="3" node2="1">
       <iface2 id="0" name="eth0" mac="00:00:00:aa:00:0d" ip4="10.0.0.60" ip4_mask="24" ip6="2001::60" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="11">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:08" ip4="10.0.0.20" ip4_mask="24" ip6="2001::14" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="10">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:09" ip4="10.0.0.21" ip4_mask="24" ip6="2001::15" ip6_mask="128"/>
     </link>
   </links>
   <mobility_configurations>
@@ -134,10 +152,10 @@
     <configuration name="ovs" value="0"/>
   </session_options>
   <session_metadata>
-    <configuration name="canvas" value="{&quot;gridlines&quot;: false, &quot;dimensions&quot;: [2560, 1417], &quot;canvases&quot;: [{&quot;id&quot;: 1, &quot;wallpaper&quot;: &quot;/root/.coregui/backgrounds/darmstadt-model.jpg&quot;, &quot;wallpaper_style&quot;: 1, &quot;fit_image&quot;: false}]}"/>
-    <configuration name="edges" value="[]"/>
-    <configuration name="shapes" value="[]"/>
+    <configuration name="shapes" value="[{&quot;canvas&quot;: 1, &quot;type&quot;: &quot;text&quot;, &quot;iconcoords&quot;: [1322.2603261697911, 49.36930345983847], &quot;label&quot;: &quot;SUN Network View&quot;, &quot;fontfamily&quot;: &quot;Droid Sans Fallback&quot;, &quot;fontsize&quot;: 20, &quot;labelcolor&quot;: &quot;#000000&quot;, &quot;color&quot;: &quot;&quot;, &quot;border&quot;: &quot;#000000&quot;, &quot;width&quot;: 1, &quot;bold&quot;: true, &quot;italic&quot;: false, &quot;underline&quot;: false}]"/>
     <configuration name="hidden" value="[]"/>
+    <configuration name="canvas" value="{&quot;gridlines&quot;: false, &quot;dimensions&quot;: [2000, 2000], &quot;canvases&quot;: [{&quot;id&quot;: 1, &quot;wallpaper&quot;: &quot;darmstadt-model.jpg&quot;, &quot;wallpaper_style&quot;: 1, &quot;fit_image&quot;: false}]}"/>
+    <configuration name="edges" value="[]"/>
   </session_metadata>
   <default_services>
     <node type="mdr">

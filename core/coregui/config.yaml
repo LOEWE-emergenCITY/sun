@@ -46,6 +46,11 @@ nodes:
       - DefaultMulticastRoute
       - dtnd
       - dtnecho
+  - !CustomNode
+    image: /root/.coregui/icons/dtn7zero-router.png
+    name: DTN7ZERO
+    services:
+      - dtn7zero
 observers: []
 preferences: !PreferencesConfig
   editor: vim
@@ -55,5 +60,5 @@ preferences: !PreferencesConfig
   theme: black
   width: 2000
 recentfiles: []
-scale: 1.0
+scale: 1.00
 servers: []
