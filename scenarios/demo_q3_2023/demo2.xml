@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<scenario name="/tmp/tmp0y74z3gw">
+<scenario name="/tmp/tmp3kkqfy2k">
   <networks>
     <network id="3" name="AdHocWiFi" icon="" canvas="0" type="WIRELESS_LAN">
       <position x="53.1245231628418" y="56.65447235107422" lat="47.57896042399966" lon="-122.13203788332326" alt="2.0"/>
     </network>
     <network id="4" name="uav0" icon="/root/.coregui/icons/uav.png" canvas="0" type="RJ45">
-      <position x="345.0300598144531" y="1163.0592041015625" lat="47.57493751665022" lon="-122.13046454409272" alt="2.0"/>
+      <position x="346.0417175292969" y="1162.0745849609375" lat="47.574941096880394" lon="-122.13045909136717" alt="2.0"/>
     </network>
     <network id="5" name="qgc0" icon="/root/.coregui/icons/pc.png" canvas="0" type="RJ45">
       <position x="344.497802734375" y="1260.404052734375" lat="47.574583554249976" lon="-122.13046741290073" alt="2.0"/>
@@ -13,7 +13,7 @@
   </networks>
   <devices>
     <device id="1" name="ACN" icon="" canvas="0" type="DTN" class="" image="">
-      <position x="345.0300598144531" y="1163.0592041015625" lat="47.57493751665022" lon="-122.13046454409272" alt="2.0"/>
+      <position x="346.0417175292969" y="1162.0745849609375" lat="47.574941096880394" lon="-122.13045909136717" alt="2.0"/>
       <services>
         <service name="DefaultMulticastRoute"/>
         <service name="dtnecho"/>
@@ -53,7 +53,7 @@
       </services>
     </device>
     <device id="8" name="p4" icon="" canvas="0" type="Mobile" class="" image="">
-      <position x="855.0" y="336.0" lat="47.577944747843226" lon="-122.12771586134247" alt="2.0"/>
+      <position x="881.3434448242188" y="336.0" lat="47.577944747843226" lon="-122.12757387302771" alt="2.0"/>
       <services>
         <service name="DefaultMulticastRoute"/>
         <service name="dtnecho"/>
@@ -78,6 +78,14 @@
       <position x="743.080322265625" y="1058.36181640625" lat="47.57531821146053" lon="-122.12831909628507" alt="2.0"/>
       <services>
         <service name="dtn7zero"/>
+      </services>
+    </device>
+    <device id="12" name="uav1" icon="" canvas="1" type="UAV" class="" image="">
+      <position x="1069.976806640625" y="291.2320251464844" lat="47.57810752165014" lon="-122.12655715963564" alt="2.0"/>
+      <services>
+        <service name="dtnd"/>
+        <service name="dtnecho"/>
+        <service name="DefaultMulticastRoute"/>
       </services>
     </device>
   </devices>
@@ -114,6 +122,9 @@
     </link>
     <link node1="3" node2="10">
       <iface2 id="0" name="eth0" mac="00:00:00:aa:00:09" ip4="10.0.0.21" ip4_mask="24" ip6="2001::15" ip6_mask="128"/>
+    </link>
+    <link node1="3" node2="12">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:0a" ip4="10.0.0.22" ip4_mask="32" ip6="2001::16" ip6_mask="128"/>
     </link>
   </links>
   <mobility_configurations>
@@ -249,7 +260,7 @@ except KeyboardInterrupt:
   <session_metadata>
     <configuration name="canvas" value="{&quot;gridlines&quot;: false, &quot;dimensions&quot;: [2000, 2000], &quot;canvases&quot;: [{&quot;id&quot;: 1, &quot;wallpaper&quot;: &quot;darmstadt-model.jpg&quot;, &quot;wallpaper_style&quot;: 1, &quot;fit_image&quot;: false}]}"/>
     <configuration name="edges" value="[]"/>
-    <configuration name="shapes" value="[{&quot;canvas&quot;: 1, &quot;type&quot;: &quot;text&quot;, &quot;iconcoords&quot;: [1322.2603261697911, 49.36930345983847], &quot;label&quot;: &quot;SUN Network View&quot;, &quot;fontfamily&quot;: &quot;Droid Sans Fallback&quot;, &quot;fontsize&quot;: 20, &quot;labelcolor&quot;: &quot;#000000&quot;, &quot;color&quot;: &quot;&quot;, &quot;border&quot;: &quot;#000000&quot;, &quot;width&quot;: 1, &quot;bold&quot;: true, &quot;italic&quot;: false, &quot;underline&quot;: false}]"/>
+    <configuration name="shapes" value="[{&quot;canvas&quot;: 1, &quot;type&quot;: &quot;text&quot;, &quot;iconcoords&quot;: [1322.2603261697907, 49.36930345983822], &quot;label&quot;: &quot;SUN Network View&quot;, &quot;fontfamily&quot;: &quot;Droid Sans Fallback&quot;, &quot;fontsize&quot;: 20, &quot;labelcolor&quot;: &quot;#000000&quot;, &quot;color&quot;: &quot;&quot;, &quot;border&quot;: &quot;#000000&quot;, &quot;width&quot;: 1, &quot;bold&quot;: true, &quot;italic&quot;: false, &quot;underline&quot;: false}]"/>
     <configuration name="hidden" value="[]"/>
   </session_metadata>
   <default_services>

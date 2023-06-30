@@ -7,6 +7,50 @@ import urllib3
 import json
 
 
+def on_btn_uav1_stop_clicked():
+    output = (
+        (
+            os.popen(
+                "docker exec -it sun_core_1 bash -c 'kill $(ps aux | grep automator | grep uav1 | cut -c 10-16)'"
+            )
+        )
+        .read()
+        .splitlines()
+    )
+    print(output)
+
+
+def on_btn_uav1_clicked():
+    ui.notify("UAV1: planning mission and starting")
+    print("UAV1: planning mission and starting")
+    output = (
+        os.popen("docker exec sun_core_1 /shared/gen_uav1_mobility.py")
+        .read()
+        .splitlines()
+    )
+    print(output)
+    output = (
+        (
+            os.popen(
+                "docker exec -it sun_core_1 bash -c 'kill $(ps aux | grep automator | grep uav1 | cut -c 10-16)'"
+            )
+        )
+        .read()
+        .splitlines()
+    )
+    print(output)
+    output = (
+        (
+            os.popen(
+                "docker exec -it sun_core_1 bash -c 'tmux new-session -A -s uav1 \; send -t uav1 \"nohup /shared/automator.sh /tmp/uav1_mobility.pos 1 &\" ENTER \; detach -s uav1'"
+            )
+        )
+        .read()
+        .splitlines()
+    )
+    print(output)
+
+
 def on_btn_dtn_single_clicked():
     ui.notify("Single message generated on random node")
     print("DTN Message Generator: Single Message")
@@ -45,20 +89,25 @@ def print_dtn_stats():
 
 GPS_H = [49.87013, 49.8842]
 GPS_W = [8.630035, 8.668971]
-#SCREEN_W = 2800
-#SCREEN_H = 1550
+# SCREEN_W = 2800
+# SCREEN_H = 1550
 SCREEN_W = 2560
 SCREEN_H = 1417
 
 
-def map_screen_to_gps(x, y, invertX = False, invertY = True):
+def map_screen_to_gps(x, y, invertX=False, invertY=True):
     if invertX:
-        x = SCREEN_W-x
+        x = SCREEN_W - x
     if invertY:
-        y = SCREEN_H-y
+        y = SCREEN_H - y
     gps_lat = GPS_H[0] + (y / SCREEN_H) * (GPS_H[1] - GPS_H[0])
     gps_lon = GPS_W[0] + (x / SCREEN_W) * (GPS_W[1] - GPS_W[0])
-    if gps_lat < GPS_H[0] or gps_lat > GPS_H[1] or gps_lon < GPS_W[0] or gps_lon > GPS_W[1]:
+    if (
+        gps_lat < GPS_H[0]
+        or gps_lat > GPS_H[1]
+        or gps_lon < GPS_W[0]
+        or gps_lon > GPS_W[1]
+    ):
         return "out of bounds! ", x, y
 
     return "%.05f,%.05f" % (gps_lat, gps_lon)
@@ -117,15 +166,20 @@ def on_feed_timer():
             point["lat"] = gps[0]
             point["lon"] = gps[1]
             points["points"].append(point)
-        #print("feeding", json.dumps(points))
-        resp = urllib3.PoolManager().urlopen(
-            "POST",
-            "http://10.193.0.86:14100/citymovie/json",
-            body=json.dumps(points),
-            headers={"Content-Type": "application/json"},
-            timeout=urllib3.Timeout(connect=1.0, read=2.0),
-        )        
-        print(resp.read())
+        # print("feeding", json.dumps(points))
+        try:
+            resp = urllib3.PoolManager().urlopen(
+                "POST",
+                feed_beamer_url.value,
+                body=json.dumps(points),
+                headers={"Content-Type": "application/json"},
+                timeout=urllib3.Timeout(connect=1.0, read=2.0),
+            )
+            print(resp.read())
+        except Exception as e:
+            print(e)
+            feed_beamer.value = False
+            ui.notify("Could not feed Beamer")
 
     if feed_nexus.value:
         pass
@@ -161,7 +215,9 @@ with ui.tab_panels(tabs, value=one).classes("w-full"):
         with ui.card():
             ui.label("UAV Control: ")
             with ui.row():
-                ui.button("Generate Flight Plan")
+                ui.button("uav0: Generate Flight Plan (PX4)")
+                ui.button("uav1: Generate Flight Plan", on_click=on_btn_uav1_clicked)
+                ui.button("uav1: Stop", on_click=on_btn_uav1_stop_clicked)
         ui.separator()
         with ui.card():
             ui.label("Visualization: ")
@@ -169,14 +225,16 @@ with ui.tab_panels(tabs, value=one).classes("w-full"):
                 feed_beamer = ui.checkbox(
                     "Feed City Model Beamer", on_change=on_feed_city_changed
                 )
-                ui.input(
+                feed_beamer_url = ui.input(
                     "beamer remote", value="http://10.193.0.86:14100/citymovie/json"
                 )
             with ui.row():
                 feed_nexus = ui.checkbox(
                     "Feed NEXUS Demonstrator", on_change=on_feed_nexus_changed
                 )
-                ui.input("nexus remote", value="http://localhost:8080/position")
+                feed_nexus_url = ui.input(
+                    "nexus remote", value="http://localhost:8080/position"
+                )
     with ui.tab_panel(two):
         view_dtn_stats = print_dtn_stats()
 
