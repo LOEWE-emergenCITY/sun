@@ -7,28 +7,25 @@ import urllib3
 import json
 
 
-def on_btn_uav1_stop_clicked():
-    output = (
-        (
-            os.popen(
-                "docker exec -it sun_core_1 bash -c 'kill $(ps aux | grep automator | grep uav1 | cut -c 10-16)'"
-            )
-        )
-        .read()
-        .splitlines()
-    )
-    print(output)
-
-
-def on_btn_uav1_clicked():
-    ui.notify("UAV1: planning mission and starting")
-    print("UAV1: planning mission and starting")
+def uav1_course_generate():
     output = (
         os.popen("docker exec sun_core_1 /shared/gen_uav1_mobility.py")
         .read()
         .splitlines()
     )
     print(output)
+
+
+def uav1_rth_generate():
+    output = (
+        os.popen("docker exec sun_core_1 /shared/rth_uav1_mobility.py")
+        .read()
+        .splitlines()
+    )
+    print(output)
+
+
+def uav1_stop():
     output = (
         (
             os.popen(
@@ -39,10 +36,45 @@ def on_btn_uav1_clicked():
         .splitlines()
     )
     print(output)
+
+
+def on_btn_uav1_stop_clicked():
+    print("UAV1: stopping")
+    uav1_stop()
+
+
+def on_btn_uav1_clicked():
+    ui.notify("UAV1: planning mission and starting")
+    print("UAV1: planning mission and starting")
+
+    uav1_rth_generate()
+    uav1_course_generate()
+
+    uav1_stop()
+
     output = (
         (
             os.popen(
-                "docker exec -it sun_core_1 bash -c 'tmux new-session -A -s uav1 \; send -t uav1 \"nohup /shared/automator.sh /tmp/uav1_mobility.pos 1 &\" ENTER \; detach -s uav1'"
+                "docker exec -it sun_core_1 bash -c 'tmux new-session -A -s uav1 \; send -t uav1 \"nohup /shared/automator.sh /tmp/uav1_rth_mobility.pos && /shared/automator.sh /tmp/uav1_mobility.pos 1 &\" ENTER \; detach -s uav1'"
+            )
+        )
+        .read()
+        .splitlines()
+    )
+    print(output)
+
+
+def on_btn_uav1_rth_clicked():
+    ui.notify("UAV1: returning to home")
+    print("UAV1: returning to home")
+    uav1_rth_generate()
+
+    uav1_stop()
+
+    output = (
+        (
+            os.popen(
+                "docker exec -it sun_core_1 bash -c 'tmux new-session -A -s uav1 \; send -t uav1 \"nohup /shared/automator.sh /tmp/uav1_rth_mobility.pos &\" ENTER \; detach -s uav1'"
             )
         )
         .read()
@@ -218,6 +250,7 @@ with ui.tab_panels(tabs, value=one).classes("w-full"):
                 ui.button("uav0: Generate Flight Plan (PX4)")
                 ui.button("uav1: Generate Flight Plan", on_click=on_btn_uav1_clicked)
                 ui.button("uav1: Stop", on_click=on_btn_uav1_stop_clicked)
+                ui.button("uav1: RTH", on_click=on_btn_uav1_rth_clicked)
         ui.separator()
         with ui.card():
             ui.label("Visualization: ")

@@ -9,6 +9,7 @@ import os
 BLACKLIST = ["ACN"]
 START = "HQ"
 SPEED = 15
+STEPS_PER_SECOND = 3
 
 
 def get_positions():
@@ -84,7 +85,7 @@ def generate_positions_between_waypoints(positions, start, end, speed):
     x1, y1, z1 = positions[start]
     x2, y2, z2 = positions[end]
     dist = distance(x1, y1, x2, y2)
-    steps = int(dist / speed)
+    steps = int(dist / speed) * STEPS_PER_SECOND
     if steps == 0:
         steps = 1
     x_step = (x2 - x1) / steps
@@ -96,17 +97,17 @@ def generate_positions_between_waypoints(positions, start, end, speed):
 
 
 positions = get_positions()
-print(positions)
+# print(positions)
 # print(get_shortest_path(positions, START, "p1"))
 path = dijkstra_algorithm(positions, START)[2]
 path.append(START)
-print(path)
+# print(path)
 
 print("Generating UAV1 mobility file...")
 # print(generate_positions_between_waypoints(positions, START, path[1], SPEED))
 
 with open("/tmp/uav1_mobility.pos", "w") as f:
-    f.write("%delay 1.0\n")
+    f.write(f"%%delay %f\n" % (1.0 / STEPS_PER_SECOND))
 
     for i in range(len(path) - 1):
         positions_between = generate_positions_between_waypoints(
