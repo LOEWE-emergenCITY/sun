@@ -28,7 +28,7 @@
         <service name="dtnd"/>
       </services>
     </device>
-    <device id="2" name="p1" icon="" canvas="0" type="Mobile" class="" image="">
+    <device id="2" name="reson1" icon="" canvas="0" type="Mobile" class="" image="">
       <position x="1426.9471435546875" y="546.00732421875" lat="47.5771811664181" lon="-122.12463312817786" alt="2.0"/>
       <services>
         <service name="DefaultMulticastRoute"/>
@@ -36,7 +36,7 @@
         <service name="dtnd"/>
       </services>
     </device>
-    <device id="6" name="p2" icon="" canvas="0" type="Mobile" class="" image="">
+    <device id="6" name="reson2" icon="" canvas="0" type="Mobile" class="" image="">
       <position x="2007.0" y="200.0" lat="47.57843923453127" lon="-122.12150670609863" alt="2.0"/>
       <services>
         <service name="DefaultMulticastRoute"/>
@@ -44,7 +44,7 @@
         <service name="dtnd"/>
       </services>
     </device>
-    <device id="7" name="p3" icon="" canvas="0" type="Mobile" class="" image="">
+    <device id="7" name="reson3" icon="" canvas="0" type="Mobile" class="" image="">
       <position x="2076.0" y="863.0" lat="47.576028567816614" lon="-122.121134803571" alt="2.0"/>
       <services>
         <service name="DefaultMulticastRoute"/>
@@ -52,7 +52,7 @@
         <service name="dtnd"/>
       </services>
     </device>
-    <device id="8" name="p4" icon="" canvas="0" type="Mobile" class="" image="">
+    <device id="8" name="reson4" icon="" canvas="0" type="Mobile" class="" image="">
       <position x="881.3434448242188" y="336.0" lat="47.577944747843226" lon="-122.12757387302771" alt="2.0"/>
       <services>
         <service name="DefaultMulticastRoute"/>
@@ -60,7 +60,7 @@
         <service name="dtnd"/>
       </services>
     </device>
-    <device id="9" name="p5" icon="" canvas="0" type="Mobile" class="" image="">
+    <device id="9" name="reson5" icon="" canvas="0" type="Mobile" class="" image="">
       <position x="816.492431640625" y="404.55560302734375" lat="47.577695482594244" lon="-122.1279234129657" alt="2.0"/>
       <services>
         <service name="DefaultMulticastRoute"/>
@@ -258,7 +258,7 @@ except KeyboardInterrupt:
     <configuration name="ovs" value="0"/>
   </session_options>
   <session_metadata>
-    <configuration name="canvas" value="{&quot;gridlines&quot;: false, &quot;dimensions&quot;: [2000, 2000], &quot;canvases&quot;: [{&quot;id&quot;: 1, &quot;wallpaper&quot;: &quot;darmstadt-model.jpg&quot;, &quot;wallpaper_style&quot;: 1, &quot;fit_image&quot;: false}]}"/>
+    <configuration name="canvas" value="{&quot;gridlines&quot;: false, &quot;dimensions&quot;: [2560, 1417], &quot;canvases&quot;: [{&quot;id&quot;: 1, &quot;wallpaper&quot;: &quot;darmstadt-model.jpg&quot;, &quot;wallpaper_style&quot;: 1, &quot;fit_image&quot;: false}]}"/>
     <configuration name="edges" value="[]"/>
     <configuration name="shapes" value="[{&quot;canvas&quot;: 1, &quot;type&quot;: &quot;text&quot;, &quot;iconcoords&quot;: [1322.2603261697907, 49.36930345983822], &quot;label&quot;: &quot;SUN Network View&quot;, &quot;fontfamily&quot;: &quot;Droid Sans Fallback&quot;, &quot;fontsize&quot;: 20, &quot;labelcolor&quot;: &quot;#000000&quot;, &quot;color&quot;: &quot;&quot;, &quot;border&quot;: &quot;#000000&quot;, &quot;width&quot;: 1, &quot;bold&quot;: true, &quot;italic&quot;: false, &quot;underline&quot;: false}]"/>
     <configuration name="hidden" value="[]"/>
