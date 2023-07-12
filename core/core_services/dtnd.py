@@ -117,8 +117,10 @@ cla.0.port = 16163
 
 # Define user specified discovery targets to send announcement beacons to, if not specified the default targets "224.0.0.26:3003" for IPv4 and "[FF02::1]:3003" will be used
 # If a IPv4 address is specified the IPv4 flag has to be enabled, same goes for specifying an IPv6 address
-# [discovery_destinations]
-#
+[discovery_destinations]
+
+target.0.destination = "10.0.0.255:3003"
+
 # target.0.destination = "224.0.0.27:3004"
 #
 # target.1.destination = "[FF02::1]:3004"
