@@ -66,6 +66,9 @@ def on_btn_uav1_clicked():
     print(output)
 
 
+test = 0
+
+
 def on_btn_start_traj_clicked():
     ui.notify("Starting joint coverage and data ferrying mission")
     print("Starting joint coverage and data ferrying mission")
@@ -73,18 +76,26 @@ def on_btn_start_traj_clicked():
     path = os.path.dirname(os.path.abspath(__file__))
     path = os.path.join(path, "demo1")
     formation = {}
+    formation_user = {}
 
     num_UAVs = 4
     num_users = 60
 
-    """ Draw users """
+    """ Load UAVs """
     for i in range(num_UAVs):
         path0 = os.path.join(path, f"drone_{i + 1}.csv")
         formation[i] = np.loadtxt(path0, delimiter=",")
 
+    """ Load users """
+    for i in range(num_users):
+        path0 = os.path.join(path, f"user_{i + 1}.csv")
+        formation_user[i] = np.loadtxt(path0, delimiter=",")
+
     formation_size = np.size(formation[0], 0)
     for j in range(formation_size // 2):
         points = {"points": []}
+
+        """ Draw UAVs """
         for i in range(num_UAVs):
             node, x, y = i, (formation[i][j + 120][0] - 200), (formation[i][j + 120][1] - 200)
             gps_lat = GPS_200_lat - y / 1000 / 111.32
@@ -97,6 +108,21 @@ def on_btn_start_traj_clicked():
             point["lat"] = gps_lat
             point["lon"] = gps_lon
             points["points"].append(point)
+
+        """ Draw users """
+        for i in range(num_users):
+            node, x, y = i, (formation_user[i][j + 120][0] - 200), (formation_user[i][j + 120][1] - 200)
+            gps_lat = GPS_200_lat - y / 1000 / 111.32
+            gps_lon = GPS_200_lon + x / 1000 / (40075 * np.cos(gps_lat) / 360)
+
+            point = {}
+            point["id"] = f"u{node}"
+            # point["lat"] = gps[0]
+            # point["lon"] = gps[1]
+            point["lat"] = gps_lat
+            point["lon"] = gps_lon
+            points["points"].append(point)
+
         try:
             resp = urllib3.PoolManager().urlopen(
                 "POST",
@@ -111,41 +137,7 @@ def on_btn_start_traj_clicked():
             feed_beamer.value = False
             ui.notify("Could not feed Beamer")
 
-        """ Draw users """
-        for i in range(num_users):
-            path0 = os.path.join(path, f"user_{i + 1}.csv")
-            formation[i] = np.loadtxt(path0, delimiter=",")
-
-        formation_size = np.size(formation[0], 0)
-        for j in range(formation_size // 2):
-            points = {"points": []}
-            for i in range(num_users):
-                node, x, y = i, (formation[i][j + 120][0] - 200), (formation[i][j + 120][1] - 200)
-                gps_lat = GPS_200_lat - y / 1000 / 111.32
-                gps_lon = GPS_200_lon + x / 1000 / (40075 * np.cos(gps_lat) / 360)
-
-                point = {}
-                point["id"] = f"u{node}"
-                # point["lat"] = gps[0]
-                # point["lon"] = gps[1]
-                point["lat"] = gps_lat
-                point["lon"] = gps_lon
-                points["points"].append(point)
-            try:
-                resp = urllib3.PoolManager().urlopen(
-                    "POST",
-                    feed_beamer_url.value,
-                    body=json.dumps(points),
-                    headers={"Content-Type": "application/json"},
-                    timeout=urllib3.Timeout(connect=1.0, read=2.0),
-                )
-                print(resp.read())
-            except Exception as e:
-                print(e)
-                feed_beamer.value = False
-                ui.notify("Could not feed Beamer")
-
-        time.sleep(5)
+        time.sleep(1)
 
 
 def on_btn_uav1_rth_clicked():
