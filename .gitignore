@@ -2,3 +2,6 @@
 **/*.log
 __pycache__/
 /docker-compose.yml
+.idea
+venv
+.DS_Store

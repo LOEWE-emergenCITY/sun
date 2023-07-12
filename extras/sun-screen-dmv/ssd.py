@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+import time
 
 from nicegui import ui
 import os
+import numpy as np
 import datetime
 import urllib3
 import json
@@ -64,6 +66,88 @@ def on_btn_uav1_clicked():
     print(output)
 
 
+def on_btn_start_traj_clicked():
+    ui.notify("Starting joint coverage and data ferrying mission")
+    print("Starting joint coverage and data ferrying mission")
+
+    path = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(path, "demo1")
+    formation = {}
+
+    num_UAVs = 4
+    num_users = 60
+
+    """ Draw users """
+    for i in range(num_UAVs):
+        path0 = os.path.join(path, f"drone_{i + 1}.csv")
+        formation[i] = np.loadtxt(path0, delimiter=",")
+
+    formation_size = np.size(formation[0], 0)
+    for j in range(formation_size // 2):
+        points = {"points": []}
+        for i in range(num_UAVs):
+            node, x, y = i, (formation[i][j + 120][0] - 200), (formation[i][j + 120][1] - 200)
+            gps_lat = GPS_200_lat - y / 1000 / 111.32
+            gps_lon = GPS_200_lon + x / 1000 / (40075 * np.cos(gps_lat) / 360)
+
+            point = {}
+            point["id"] = node
+            # point["lat"] = gps[0]
+            # point["lon"] = gps[1]
+            point["lat"] = gps_lat
+            point["lon"] = gps_lon
+            points["points"].append(point)
+        try:
+            resp = urllib3.PoolManager().urlopen(
+                "POST",
+                feed_beamer_url.value,
+                body=json.dumps(points),
+                headers={"Content-Type": "application/json"},
+                timeout=urllib3.Timeout(connect=1.0, read=2.0),
+            )
+            print(resp.read())
+        except Exception as e:
+            print(e)
+            feed_beamer.value = False
+            ui.notify("Could not feed Beamer")
+
+        """ Draw users """
+        for i in range(num_users):
+            path0 = os.path.join(path, f"user_{i + 1}.csv")
+            formation[i] = np.loadtxt(path0, delimiter=",")
+
+        formation_size = np.size(formation[0], 0)
+        for j in range(formation_size // 2):
+            points = {"points": []}
+            for i in range(num_users):
+                node, x, y = i, (formation[i][j + 120][0] - 200), (formation[i][j + 120][1] - 200)
+                gps_lat = GPS_200_lat - y / 1000 / 111.32
+                gps_lon = GPS_200_lon + x / 1000 / (40075 * np.cos(gps_lat) / 360)
+
+                point = {}
+                point["id"] = f"u{node}"
+                # point["lat"] = gps[0]
+                # point["lon"] = gps[1]
+                point["lat"] = gps_lat
+                point["lon"] = gps_lon
+                points["points"].append(point)
+            try:
+                resp = urllib3.PoolManager().urlopen(
+                    "POST",
+                    feed_beamer_url.value,
+                    body=json.dumps(points),
+                    headers={"Content-Type": "application/json"},
+                    timeout=urllib3.Timeout(connect=1.0, read=2.0),
+                )
+                print(resp.read())
+            except Exception as e:
+                print(e)
+                feed_beamer.value = False
+                ui.notify("Could not feed Beamer")
+
+        time.sleep(5)
+
+
 def on_btn_uav1_rth_clicked():
     ui.notify("UAV1: returning to home")
     print("UAV1: returning to home")
@@ -100,6 +184,10 @@ def on_feed_city_changed():
     print("Feed City Model Beamer: " + str(feed_beamer.value))
 
 
+def on_feed_city_demo1_changed():
+    print("Feed Demo 1: " + str(feed_beamer_demo1.value))
+
+
 def on_feed_nexus_changed():
     print("Feed NEXUS Demonstrator: " + str(feed_nexus.value))
 
@@ -118,6 +206,9 @@ def print_dtn_stats():
         }
     )
 
+# from latlon
+GPS_200_lat = 49.8794921
+GPS_200_lon = 8.648745509123888
 
 GPS_H = [49.87013, 49.8842]
 GPS_W = [8.630035, 8.668971]
@@ -188,17 +279,21 @@ def watchdog():
 def on_feed_timer():
     if feed_beamer.value:
         points = {"points": []}
-        output = os.popen("docker exec sun_core_1 dump_xy.sh").read().splitlines()
-        for line in output:
-            # print(line)
-            node, x, y = line.strip().split()
-            gps = map_screen_to_gps(int(x), int(y)).split(",")
-            point = {}
-            point["id"] = node
-            point["lat"] = gps[0]
-            point["lon"] = gps[1]
-            points["points"].append(point)
-        # print("feeding", json.dumps(points))
+
+        if feed_beamer_demo1.value:
+            raise NotImplementedError
+        else:
+            output = os.popen("docker exec sun_core_1 dump_xy.sh").read().splitlines()
+            for line in output:
+                # print(line)
+                node, x, y = line.strip().split()
+                gps = map_screen_to_gps(int(x), int(y)).split(",")
+                point = {}
+                point["id"] = node
+                point["lat"] = gps[0]
+                point["lon"] = gps[1]
+                points["points"].append(point)
+            # print("feeding", json.dumps(points))
         try:
             resp = urllib3.PoolManager().urlopen(
                 "POST",
@@ -251,6 +346,7 @@ with ui.tab_panels(tabs, value=one).classes("w-full"):
                 ui.button("uav1: Generate Flight Plan", on_click=on_btn_uav1_clicked)
                 ui.button("uav1: Stop", on_click=on_btn_uav1_stop_clicked)
                 ui.button("uav1: RTH", on_click=on_btn_uav1_rth_clicked)
+                ui.button("Start Demo 1: Joint Coverage and Data Ferrying", on_click=on_btn_start_traj_clicked)
         ui.separator()
         with ui.card():
             ui.label("Visualization: ")
@@ -262,12 +358,17 @@ with ui.tab_panels(tabs, value=one).classes("w-full"):
                     "beamer remote", value="http://10.193.0.86:14100/citymovie/json"
                 )
             with ui.row():
+                feed_beamer_demo1 = ui.checkbox(
+                    "UNUSED_SWITCH_FEED", on_change=on_feed_city_demo1_changed
+                )
+            with ui.row():
                 feed_nexus = ui.checkbox(
                     "Feed NEXUS Demonstrator", on_change=on_feed_nexus_changed
                 )
                 feed_nexus_url = ui.input(
                     "nexus remote", value="http://localhost:8080/position"
                 )
+
     with ui.tab_panel(two):
         view_dtn_stats = print_dtn_stats()
 
