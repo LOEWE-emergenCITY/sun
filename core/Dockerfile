@@ -11,6 +11,9 @@ RUN cargo install --bins --examples --root /usr/local --version 0.1.5 coreemu
 
 FROM gh0st42/dtn7-showroom:v0.2.0
 
+RUN pip3 install dtn7zero==0.0.7
+RUN pip3 install paho-mqtt
+
 # install stuff for vnc session
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \

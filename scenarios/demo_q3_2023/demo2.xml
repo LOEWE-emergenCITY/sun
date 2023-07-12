@@ -124,7 +124,7 @@
       <iface2 id="0" name="eth0" mac="00:00:00:aa:00:09" ip4="10.0.0.21" ip4_mask="24" ip6="2001::15" ip6_mask="128"/>
     </link>
     <link node1="3" node2="12">
-      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:0a" ip4="10.0.0.22" ip4_mask="32" ip6="2001::16" ip6_mask="128"/>
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:0a" ip4="10.0.0.22" ip4_mask="24" ip6="2001::16" ip6_mask="128"/>
     </link>
   </links>
   <mobility_configurations>
@@ -167,10 +167,14 @@ import json
 import random
 
 from dtn7zero import setup, register, register_group, start_background_update_thread, run_forever
+from dtn7zero.configuration import CONFIGURATION
 from py_dtn7.bundle import PrimaryBlock
 
 sys.path.append("/shared/nexus_sensors/")
 import watersim
+
+CONFIGURATION.DEBUG = True
+CONFIGURATION.IPND.INTERFACE_WHITELIST = ["eth0"]
 
 node_id = f"dtn://{socket.gethostname()}/"
 node_endpoint = setup(node_id)
@@ -213,10 +217,14 @@ import random
 import json
 
 from dtn7zero import setup, register, register_group, start_background_update_thread, run_forever
+from dtn7zero.configuration import CONFIGURATION
 from py_dtn7.bundle import PrimaryBlock
 
 sys.path.append("/shared/nexus_sensors/")
 import powersim
+
+CONFIGURATION.DEBUG = True
+CONFIGURATION.IPND.INTERFACE_WHITELIST = ["eth0"]
 
 node_id = f"dtn://{socket.gethostname()}/"
 node_endpoint = setup(node_id)
