@@ -1,4 +1,4 @@
-FROM rust:1.61 as builder
+FROM rust:1.71.1 as builder
 WORKDIR /root
 RUN rustup component add rustfmt
 RUN cargo install --bins --examples --root /usr/local --git https://github.com/dtn7/dtn7-rs --rev 7519b01 dtn7

@@ -1,4 +1,4 @@
-FROM rust:1.61 as builder
+FROM rust:1.71.1 as builder
 WORKDIR /root
 RUN cargo install --bins --examples --root /usr/local --version 0.17.3 dtn7
 RUN cargo install --bins --examples --root /usr/local --version 0.6.1 dtn7-plus
